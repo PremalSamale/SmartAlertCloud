@@ -34,7 +34,7 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void deleteCluster(Cluster cluster) {
 		Configuration con = new Configuration().configure()
-				.addAnnotatedClass(Cluster.class).addAnnotatedClass(Node.class);
+				.addAnnotatedClass(Cluster.class);
 		ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf = con.buildSessionFactory(reg);
 		Session session = sf.openSession();
@@ -86,6 +86,7 @@ public class AdminDaoImpl implements AdminDao{
 		SessionFactory sf = con.buildSessionFactory(reg);
 		Session session = sf.openSession();
 		Cluster cluster = (Cluster) session.get(Cluster.class, clusterId);
+		System.out.println("***********inside chooseClusterToEditOrDelete clusterID"+cluster.getCounty());
 		session.close();
 		return cluster;
 	}

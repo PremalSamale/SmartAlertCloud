@@ -67,7 +67,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 180px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -90,7 +90,7 @@ body {
 }
 
 .main {
-  margin-left: 130px; /* Same as the width of the sidenav */
+  margin-left: 150px; /* Same as the width of the sidenav */
   font-size: 25px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
@@ -107,9 +107,7 @@ body {
 
 
 <div class="sidenav">
-  <h1 >
-      <a  href="/dashboard">Dashboard</a>
-    </h1>
+ <h1 style="color: Orange;">Dashboard </h1>
   <a href="/dashboard">IOT </a>
   <a href="/mapView">Map View</a>
 </div>

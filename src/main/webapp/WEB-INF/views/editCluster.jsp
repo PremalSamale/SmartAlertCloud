@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/includes.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,10 +57,10 @@ body {
 <body >
   
 <div class="sidenav">
-  <h1>
-   <a href="/manageCluster">Manage Cluster</a>
-  </h1>
-  <a href="/">Add Cluster</a>
+  <h1 style="color: Orange;">Manage Cluster</h1>
+  <a href="/addCluster">Add Cluster</a>
+  <a href="/manageCluster">Search Cluster</a>
+  <a href="/editCluster">Update Cluster</a>
 </div>
 
 <div class="main">
@@ -94,33 +95,26 @@ body {
 	</div>
 </div>
 
-
-
-
-
-<div class="container">
+ <div class="container">
 	<div class="col-lg-12 col-md-12">
 		<form action="searchClusterForEdit" method="post">
-			<h2 class="form-heading">Search Cluster and then edit or delete</h2>
+			<h2 class="form-heading">Cluster Search and Filter</h2>
 			<div class="form-group ${error != null ? 'has-error' : ''}">
 				<span style="color:green">${searchClusterMsg}</span>
 				<span style="color:red">${searchClusterErrMsg}</span>
 				<table class="col-lg-12 col-md-12">
 					<tr>
-						<td><input name="keywords" type="text" class="form-control" placeholder="Keywords" autofocus="true"/></td>
 						<td><input name="clusterID" type="text" class="form-control" placeholder="clusterID" autofocus="true"/></td>						
 						<td>
 							<select name="county" type="text" class="form-control" size="3" multiple autofocus="true">
 								<option value="" disabled selected>County</option>
-								 <option value="ALAMEDA">ALAMEDA </option>
-			  					<option value="LOS_ANGELES">LOS_ANGELES </option>
-			  					<option value="VENTURA">VENTURA</option>
-			  					<option value="SAN_BANITO">SAN_BANITO</option>
-			  					<option value="YOLO">YOLO</option>
+							 	<option value="ALAMEDA">Alameda </option>
+			  					<option value="LOS_ANGELES">Los_Angeles </option>
+			  					<option value="VENTURA">Ventura</option>
+			  					<option value="SAN_BANITO">San_Benito</option>
+			  					<option value="YOLO">Yolo</option>
 							</select>
 						</td>
-						
-								
 					</tr>
 					<tr>
 						<td colspan='7'><button class="btn btn-lg btn-primary btn-block" type="submit">Search Cluster</button></td>
@@ -131,35 +125,29 @@ body {
 	</div>
 </div>
 <br>
+
+
 <div class="container">
 	<div class="col-lg-12 col-md-12">
 		<table class="table table-bordered table-striped table-hover col-md-1" border="1">
-			<th style="display:none;">Cluster ID</th>
-			
-			<th>Edit and Delete Cluster</th>
+			<th>clusterID</th>
+			<th>County </th>
+			<th> Latitude </th>
+			<th>Longitude </th>			
+			<th>Edit Cluster</th>
+			<th>Delete Cluster</th>
 			<%-- <c:forEach items="${movieList}" var="movie"> --%>
-			<c:forEach items="${ClusterList}" var="ClusterList"> 
+			<c:forEach items="${ClusterList}" var="cluster"> 
 				<tr>
 					<form action="chooseClusterToEditOrDelete" method="post">
-						<td style="display:none;"><input name="clusterID" type="text" autofocus="true" value="${ClusterList.clusterID}"/></td>
-						<td><input name="latitude" type="text" class="form-control" placeholder="latitude" autofocus="true" value="${ClusterList.latitude}"/></td>
-						<td><input name="longitude" type="text" class="form-control" placeholder="longitude" autofocus="true" value="${ClusterList.longitude}"/></td>
-							
-						<td><label>County</label></td>
-						<td>
-							<select name="county" value="${ClusterList.county}" required="required" type="text" class="form-control" autofocus="true">
-							
-							   <option value="" disabled selected>County</option>
-								 <option value="ALAMEDA">ALAMEDA </option>
-			 					 <option value="LOS_ANGELES">LOS_ANGELES </option>
-			  					<option value="VENTURA">VENTURA</option>
-			  					<option value="SAN_BANITO">SAN_BANITO</option>
-			  					<option value="YOLO">YOLO</option>
-							</select>
-						</td>
-				
+						<td><input name="clusterID" type="text" autofocus="true" value="${cluster.clusterID}"/></td>
+						<td><input name="county" type="text" autofocus="true" value="${cluster.county}"/></td>
+						<td><input name="latitude" type="text" autofocus="true" value="${cluster.latitude}"/></td>
+				    	<td><input name="longitude" type="text" autofocus="true" value="${cluster.longitude}"/></td>					
 						<td>
 							<input type="submit" name="action" value="Edit"/>
+						</td>
+						<td>
 							<input type="submit" name="action" value="Delete"/>
 						</td>
 					</form>
@@ -172,15 +160,14 @@ body {
 <div style="${editClusterDivStyle}" class="container">
 	<div class="col-md-12">
 		<form action="submitEditedCluster" method="post">
-			<h3 class="form-heading">Edit Movie</h3>
+			<h3 class="form-heading">Edit Cluster</h3>
 			<div class="form-group ${error != null ? 'has-error' : ''}">
 				<span style="color:green">${submitEditedClusterMsg}</span>
 				<span style="color:red">${submitEditedClusterErrMsg}</span>
 				<table class="col-lg-12 col-md-12">
-					<tr><input name="clusterID" value="${clusterID}" required="required" type="hidden" class="form-control" placeholder="clusterID" autofocus="true"/></tr>
-					
-		
+					<tr><input name="clusterID" value="${clusterID}" required="required" type="hidden" class="form-control" placeholder="clusterID" autofocus="true"/></tr>	
 					<tr>
+						
 						<td><label>County</label></td>
 						<td>
 							<select name="county" value="${county}" required="required" type="text" class="form-control" autofocus="true">
@@ -200,7 +187,7 @@ body {
 					
 					<tr>
 						<td><label>longitude</label></td>
-						<td><input name="logitude" value="${longitude}" required="required" type="text" class="col-lg-6 col-md-6 form-control" placeholder="logitude" autofocus="true"/></td>
+						<td><input name="longitude" value="${longitude}" required="required" type="text" class="col-lg-6 col-md-6 form-control" placeholder="logitude" autofocus="true"/></td>
 					</tr>
 					
 					<tr>
@@ -210,11 +197,7 @@ body {
 			</div>
 		</form>
 	</div>
-</div>
-
-
- 
-	
+</div>	
 </div>
 </body>
 </html>

@@ -100,9 +100,7 @@ body {
  
 
 <div class="sidenav">
-<h1>
-<a href="/dashboard">Dashboard </a>
-</h1>
+ <h1 style="color: Orange;">Dashboard </h1>
   <a href="/dashboard">IOT </a>
   <a href="/mapView">Map View</a>
 </div>

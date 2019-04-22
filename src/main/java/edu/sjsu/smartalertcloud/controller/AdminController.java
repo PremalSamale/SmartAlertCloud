@@ -76,41 +76,33 @@ public class AdminController {
 		
 	}
 	
-	/*@RequestMapping(value="/searchClusterForEdit", method={RequestMethod.POST})
+	@RequestMapping(value="/searchClusterForEdit", method={RequestMethod.POST})
 	public ModelAndView searchClusterForEdit(HttpServletRequest request) throws ParseException {
 		String clusterID = request.getParameter("clusterID");
 		System.out.println("********************clusterID"+clusterID);
-		String keywords = request.getParameter("keywords");
-	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
-		SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
-		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
-		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));
-		float latitude =Float.parseFloat( request.getParameter("latitude"));
-		float longitude = Float.parseFloat(request.getParameter("longitude"));
+
 		String[] county =request.getParameterValues("county");
-		System.out.println("********************latitude"+latitude);
-		System.out.println("********************longitude"+longitude); 
+
 		ModelAndView mv = new ModelAndView("editCluster");		
-		List<Cluster> clusters = adminService.searchCluster(county, clusterID, keywords);
+		List<Cluster> clusters = adminService.searchCluster(county, clusterID);
 		mv.addObject("ClusterList", clusters);
 		mv.addObject("editClusterDivStyle", "visibility: hidden");
 		return mv;
 		
 	}
 	
-	@RequestMapping(value="/editCluster", method={RequestMethod.GET})
-	public ModelAndView goToEditPage(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("editCluster");
-		mv.addObject("editClusterDivStyle", "visibility: hidden");
-		return mv;
-	}
-	
+
 	
 	@RequestMapping(value="/chooseClusterToEditOrDelete", method={RequestMethod.POST})
 	public ModelAndView chooseClusterToEdit(HttpServletRequest request) {
-		int clusterId = Integer.parseInt(request.getParameter("clusterId"));
-		Cluster cluster=adminService.getCluster(clusterId);
+		String clusterId = request.getParameter("clusterID");
+		Cluster cluster = null;
+		if(clusterId !=null && !clusterId.equals("")) {
+			int clusterID = Integer.parseInt(clusterId);
+			cluster = adminService.getCluster(clusterID);
+		}
+		System.out.println("***********inside chooseClusterToEditOrDelete clusterID"+clusterId);
+		
 		ModelAndView mv = new ModelAndView("editCluster");
 		if (request.getParameter("action").equals("Edit")) {
 			mv.addObject("clusterID", cluster.getClusterID());
@@ -129,13 +121,16 @@ public class AdminController {
 
 	@RequestMapping(value="/submitEditedCluster", method={RequestMethod.POST})
 	public ModelAndView submitEditedCluster(HttpServletRequest request) {
-		int clusterId = Integer.parseInt(request.getParameter("clusterId"));
-		Cluster cluster=adminService.getCluster(clusterId);
-		cluster.setClusterID(Integer.parseInt(request.getParameter("clusterID")));
-		
+		String clusterId = request.getParameter("clusterID");
+		Cluster cluster = null;
+		if(clusterId !=null && !clusterId.equals("")) {
+			int clusterID = Integer.parseInt(clusterId);
+			cluster = adminService.getCluster(clusterID);
+		}
+		cluster.setClusterID(Integer.parseInt(request.getParameter("clusterID")));	
 		cluster.setCounty(County.valueOf(request.getParameter("county")));
 		cluster.setLatitude(Float.parseFloat(request.getParameter("latitude")));
-		cluster.setLongitude(Float.parseFloat(request.getParameter("latitude")));
+		cluster.setLongitude(Float.parseFloat(request.getParameter("longitude")));
 		adminService.addCluster(cluster);
 		ModelAndView mv = new ModelAndView("editCluster");
 		mv.addObject("submitEditedClusterMsg", "Cluster edited successfully");
@@ -143,5 +138,5 @@ public class AdminController {
 		return mv;
 	}
 	
-*/
+
 }

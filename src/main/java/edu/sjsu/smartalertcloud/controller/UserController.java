@@ -146,6 +146,14 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("addCluster");
         return modelAndView;
     }
+    
+    @RequestMapping(value="/editCluster",  method=RequestMethod.GET)
+    protected ModelAndView editCluster() {
+        ModelAndView modelAndView = new ModelAndView("editCluster");
+        modelAndView.addObject("editClusterDivStyle", "visibility: hidden");
+        return modelAndView;
+    }
+    
     @RequestMapping("/manageNode")
     protected ModelAndView manageNode() {
         ModelAndView modelAndView = new ModelAndView("manageNode");

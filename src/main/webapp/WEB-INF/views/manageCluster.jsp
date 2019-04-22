@@ -68,10 +68,10 @@ body {
 <body >
 
   <div class="sidenav">
-  <h1>
-   <a href="/manageCluster">Manage Cluster</a>
-  </h1>
+  <h1 style="color: Orange;">Manage Cluster</h1>
   <a href="/addCluster">Add Cluster</a>
+  <a href="/manageCluster">Search Cluster</a>
+  <a href="/editCluster">Update Cluster</a>
    
 </div>
 
@@ -151,12 +151,7 @@ body {
 	</div>
 </div>
 
-<!-- <div class="container">
-	<div class="col-lg-12 col-md-12">
-    	<h1><a style="font-size:100%" href="/editCluster">Edit or Delete cluster</a></h1>
-    </div>
-</div>
- -->
+
 </div>
 </body>
 </html>

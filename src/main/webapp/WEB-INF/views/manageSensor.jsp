@@ -75,12 +75,11 @@ body {
 
  
 	
-  <div class="sidenav">
-  <h1><a href="/manageSensor">Manage Sensors</a></h1>
-  <a href="/">Add Sensors</a>
-  <a href="/">Update Sensors</a>
-  <a href="/">Delete Sensors</a>
-   <a href="/">View Sensors</a>
+ <div class="sidenav">
+ <h1 style="color: Orange;">Manage Sensor</h1>
+  <a href="/manageSensor">Add Sensor</a>
+  <a href="/manageSensor">Search Sensor</a>
+  <a href="/manageSensor">Update Sensor</a>
 </div>
 
 <div class="main">

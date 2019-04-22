@@ -66,14 +66,20 @@ body {
 
 </head>
 <body >
-    <div class="sidenav">
-  <h1>
-   <a href="/manageNode">Manage Node</a>
-  </h1>
-  <a href="/">Add Node</a>
-  <a href="/">Update Node</a>
-  <a href="/">Delete Node</a>
-   <a href="/">View Node</a>
+
+  <div class="sidenav">
+  <h1 style="color: Orange;">Manage Cluster</h1>
+  <a href="/addCluster">Add Cluster</a>
+  <a href="/manageCluster">Search Cluster</a>
+  <a href="/editCluster">Update Cluster</a>
+   
+</div>
+
+ <div class="sidenav">
+ <h1 style="color: Orange;">Manage Node</h1>
+  <a href="/manageNode">Add Node</a>
+  <a href="/manageNode">Search Node</a>
+  <a href="/manageNode">Update Node</a>
 </div>
 
 <div class="main">
