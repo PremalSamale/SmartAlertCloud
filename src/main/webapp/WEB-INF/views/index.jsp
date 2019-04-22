@@ -10,6 +10,14 @@
     <script src="<c:url value="/resources/theme1/js/jquery-ui.min.klpy.css" />"></script>
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
+  <style>
+ body {
+  font-family: "Lato", sans-serif;
+    margin-left: 30px; /* Same as the width of the sidenav */
+  font-size: 25px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+ </style>
 </head>
 <body class="bck-body">
   <nav class="navbar navbar-inverse">

@@ -82,14 +82,21 @@ body {
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
-     <li class="active"><a href="/">Home</a></li>
-      <li><a href="#">Dashboard</a></li>
+     <li ><a href="/home">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
        <li><a href="/manageCluster">Manage Cluster</a></li>
         <li><a href="/manageNode">Manage Nodes</a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+   <ul class="nav navbar-nav navbar-right">
+       <u>
+	   <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a>
+	        	&nbsp;&nbsp;     	
+	  </u>
+	  <form id="logoutForm" method="POST" action="${contextPath}/logout">
+	  </form>
+	  <!-- /container -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </ul>
   </div>
 </nav>

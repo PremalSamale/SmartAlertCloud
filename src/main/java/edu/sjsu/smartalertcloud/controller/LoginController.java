@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 
 public class LoginController {
-	@RequestMapping(value="/", method=RequestMethod.POST)
+	@RequestMapping(value="/home", method=RequestMethod.POST)
 	public ModelAndView loginPost() {
 		ModelAndView mv = new ModelAndView("home");
 		return mv;

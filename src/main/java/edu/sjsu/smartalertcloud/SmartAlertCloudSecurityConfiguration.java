@@ -60,7 +60,7 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
         .antMatchers("/home**").hasAnyRole("ADMIN")*/
         .anyRequest().authenticated().and().formLogin()
         .loginPage("/login")
-        .defaultSuccessUrl("/")
+        .defaultSuccessUrl("/home")
         .permitAll().and().logout().permitAll();
 
         http.csrf().disable();
