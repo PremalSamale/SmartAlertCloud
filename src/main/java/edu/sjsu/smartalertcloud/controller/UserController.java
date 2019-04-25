@@ -166,11 +166,36 @@ public class UserController {
         return modelAndView;
     }
     
-    @RequestMapping("/mapView")
+    @RequestMapping("/sensorDataReport")
     protected ModelAndView map() {
-        ModelAndView modelAndView = new ModelAndView("mapView");
+        ModelAndView modelAndView = new ModelAndView("sensorDataReport");
         return modelAndView;
     }
+    
+    @RequestMapping("/sensorData")
+    protected ModelAndView sensorData() {
+        ModelAndView modelAndView = new ModelAndView("sensorData");
+        return modelAndView;
+    }
+    
+    @RequestMapping("/clusterLocationView")
+    protected ModelAndView clusterLocationView() {
+        ModelAndView modelAndView = new ModelAndView("clusterLocationView");
+        return modelAndView;
+    }
+    
+    
+    @RequestMapping("/sensorMapView")
+    protected ModelAndView sensorMapView() {
+        ModelAndView modelAndView = new ModelAndView("sensorMapView");
+        return modelAndView;
+    }
+    
+/*    @RequestMapping("/contactUs")
+    protected ModelAndView mapView() {
+        ModelAndView modelAndView = new ModelAndView("contactUs");
+        return modelAndView;
+    }*/
 	/*@RequestMapping(value="/user/admin", method=RequestMethod.GET)
 	public ModelAndView doAdmin() {
 		return new ModelAndView("admin");

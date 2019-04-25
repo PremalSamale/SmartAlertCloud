@@ -88,15 +88,16 @@ body {
     
     <ul class="nav navbar-nav">
       <li class="active"><a href="/home">Home</a></li>
-      <li><a href="/dashoard">Dashboard</a></li>
-       <li><a href="/manageCluster">Manage Cluster</a></li>
-        <li><a href="/manageNodes">Manage Nodes</a></li>
+      <li class="active"><a href="/dashboard">Dashboard</a></li>
+     <li class="active"><a href="/manageSensor">Manage Sensors</a></li>
+       <li class="active"><a href="/manageCluster">Manage Cluster</a></li>
+        <li class="active"><a href="/manageNode">Manage Nodes</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-       <u>
-	   <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a>
-	        	&nbsp;&nbsp;     	
-	  </u>
+      
+	  <li class="active"> <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+	          	
+	 
 	  <form id="logoutForm" method="POST" action="${contextPath}/logout">
 	  </form>
 	  <!-- /container -->
