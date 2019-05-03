@@ -130,11 +130,7 @@ public class UserController {
 	}
 
 	
-	@RequestMapping(value="/manageSensor", method=RequestMethod.GET)
-    protected ModelAndView manageSensor() {
-        ModelAndView modelAndView = new ModelAndView("manageSensor");
-        return modelAndView;
-    }
+	
     @RequestMapping(value="/manageCluster",  method=RequestMethod.GET)
     protected ModelAndView manageCluster() {
         ModelAndView modelAndView = new ModelAndView("manageCluster");
@@ -159,7 +155,14 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("manageNode");
         return modelAndView;
     }
-    
+	
+	@RequestMapping("/editNode")
+    protected ModelAndView editNode() {
+        ModelAndView modelAndView = new ModelAndView("editNode");
+        // modelAndView.addObject("editNodeDivStyle", "visibility: hidden");
+        return modelAndView;
+	}
+	
     @RequestMapping("/dashboard")
     protected ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView("dashboard");
@@ -170,9 +173,33 @@ public class UserController {
     protected ModelAndView map() {
         ModelAndView modelAndView = new ModelAndView("mapView");
         return modelAndView;
+	}
+	
+	@RequestMapping(value="/addNode",  method=RequestMethod.GET)
+    protected ModelAndView addNode() {
+        ModelAndView modelAndView = new ModelAndView("addNode");
+        return modelAndView;
     }
 	/*@RequestMapping(value="/user/admin", method=RequestMethod.GET)
 	public ModelAndView doAdmin() {
 		return new ModelAndView("admin");
 	}*/
+
+	@RequestMapping("/manageSensor")
+    protected ModelAndView manageSensor() {
+        ModelAndView modelAndView = new ModelAndView("manageSensor");
+        return modelAndView;
+    }
+	
+	@RequestMapping("/editSensor")
+    protected ModelAndView editSensor() {
+        ModelAndView modelAndView = new ModelAndView("editSensor");
+        // modelAndView.addObject("editNodeDivStyle", "visibility: hidden");
+        return modelAndView;
+	}
+	@RequestMapping(value="/addSensor",  method=RequestMethod.GET)
+    protected ModelAndView addSensor() {
+        ModelAndView modelAndView = new ModelAndView("addSensor");
+        return modelAndView;
+    }
 }

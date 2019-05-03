@@ -14,18 +14,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 
 @Entity
 public class Cluster {
-	  @Id
+		@Id
 	    private int clusterID;
 	   /* @OneToMany(fetch = FetchType.EAGER, mappedBy="Cluster")
 	    private Set<Node> node = new HashSet<>();*/
 	    private float latitude;
 	    private float longitude;
 	    @Enumerated(EnumType.STRING)
-	    private County county;
+			private County county;
+			
+			// @OneToMany(mappedBy = "Node", cascade = CascadeType.ALL)
+			// private Set<Node> nodes;
 	    
 		public Cluster() {
 			super();
@@ -45,12 +52,12 @@ public class Cluster {
 		public void setClusterID(int clusterID) {
 			this.clusterID = clusterID;
 		}
-	/*	public Set<Node> getNode() {
-			return node;
-		}
-		public void setNode(Set<Node> node) {
-			this.node = node;
-		}*/
+		// public Set<Node> getNodes() {
+		// 	return nodes;
+		// }
+		// public void setNodes(Set<Node> nodes) {
+		// 		nodes.forEach(x -> x.setCluster(this));
+		// }
 		public float getLatitude() {
 			return latitude;
 		}

@@ -9,6 +9,9 @@ import edu.sjsu.smartalertcloud.dao.AdminDao;
 import edu.sjsu.smartalertcloud.model.Cluster;
 import edu.sjsu.smartalertcloud.model.County;
 import edu.sjsu.smartalertcloud.service.AdminService;
+import edu.sjsu.smartalertcloud.model.Node;
+import edu.sjsu.smartalertcloud.model.Sensor;
+
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -105,6 +108,58 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.getCluster(clusterId);
 	}
 
+	@Override
+	public void addNode(Node node) {
+		System.out.println("inside adminservice impl"+node);
+		adminDao.addNode(node);
+		
+	}
 
+	@Override
+	public List<Node> getNode(String[] city) {
+		// TODO Auto-generated method stub
+		List<Node> nodes = adminDao.getNode(city);
+		return nodes;
+	}
+
+	@Override
+	public Node getNode(int nodeId) {
+		// TODO Auto-generated method stub
+		return adminDao.getNode(nodeId);
+	}
+
+	@Override
+	public void deleteNode(Node node) {
+		// TODO Auto-generated method stub
+		adminDao.deleteNode(node);
+		
+	}
+
+	@Override
+	public void addSensor(Sensor sensor) {
+		System.out.println("inside adminservice impl"+sensor);
+		adminDao.addSensor(sensor);
+		
+	}
+
+	@Override
+	public List<Sensor> getSensor(String[] zip) {
+		// TODO Auto-generated method stub
+		List<Sensor> sensors = adminDao.getSensor(zip);
+		return sensors;
+	}
+
+	@Override
+	public Sensor getSensor(int sensorId) {
+		// TODO Auto-generated method stub
+		return adminDao.getSensor(sensorId);
+	}
+
+	@Override
+	public void deleteSensor(Sensor sensor) {
+		// TODO Auto-generated method stub
+		adminDao.deleteSensor(sensor);
+		
+	}
 
 }

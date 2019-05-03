@@ -10,20 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 
 @Entity
 public class Sensor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int sensorID; 
+	private Long sensor_id;
+
+	// @ManyToOne(cascade = CascadeType.MERGE)
+	// @JoinColumn(name = "node_id", referencedColumnName = "node_id")
+	// private Node node;	
 	
-	@ManyToOne
-	private Node node;	 
+	
+	private String zip;
+	 
     private float latitude;
     private float longitude;
     
-    private String sensorType;
-    private String sensorStatus; 
+    private String type;
+	private String status; 
+	private String name;
+	private String description;
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
     private Date lastDateOfMaintainnance;
@@ -34,8 +46,8 @@ public class Sensor {
 
 	@Override
 	public String toString() {
-		return "Sensor [sensorID=" + sensorID + ", node=" + node + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", sensorType=" + sensorType + ", sensorStatus=" + sensorStatus + ", lastDateOfMaintainnance="
+		return "Sensor [sensor_id=" + sensor_id + ", latitude=" + latitude + ", longitude=" + longitude
+				+ ", type=" + type + ", status=" + status + ", lastDateOfMaintainnance="
 				+ lastDateOfMaintainnance + ", dateOfDeployment=" + dateOfDeployment + "]";
 	}
 
@@ -44,21 +56,33 @@ public class Sensor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getSensorID() {
-		return sensorID;
+	public Sensor(String name, String description, String status, String type, Float latitude, Float longitude, String zip) {
+		super();
+		/*this.node = node;*/
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.zip = zip;
+		this.type = type;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
+	public Long getSensorId() {
+		return sensor_id;
 	}
 
-	public void setSensorID(int sensorID) {
-		this.sensorID = sensorID;
+	public void setSensorId(Long sensor_id) {
+		this.sensor_id = sensor_id;
 	}
 
-	public Node getNode() {
-		return node;
-	}
+	// public Node getNode() {
+	// 	return node;
+	// }
 
-	public void setNode(Node node) {
-		this.node = node;
-	}
+	// public void setNode(Node node) {
+	// 	this.node = node;
+	// }
 
 	public float getLatitude() {
 		return latitude;
@@ -76,20 +100,33 @@ public class Sensor {
 		this.longitude = longitude;
 	}
 
-	public String getSensorType() {
-		return sensorType;
+	public String getType() {
+		return type;
 	}
 
-	public void setSensorType(String sensorType) {
-		this.sensorType = sensorType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getSensorStatus() {
-		return sensorStatus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setSensorStatus(String sensorStatus) {
-		this.sensorStatus = sensorStatus;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getLastDateOfMaintainnance() {
@@ -107,7 +144,13 @@ public class Sensor {
 	public void setDateOfDeployment(Date dateOfDeployment) {
 		this.dateOfDeployment = dateOfDeployment;
 	}
-    
+	
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
     
     
 }

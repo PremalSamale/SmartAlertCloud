@@ -15,6 +15,10 @@ import edu.sjsu.smartalertcloud.model.Cluster;
 import edu.sjsu.smartalertcloud.model.County;
 import edu.sjsu.smartalertcloud.service.AdminService;
 
+import edu.sjsu.smartalertcloud.model.Node;
+import edu.sjsu.smartalertcloud.model.Sensor;
+
+
 
 @Controller
 public class AdminController {
@@ -54,7 +58,7 @@ public class AdminController {
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
 		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
-	
+		
 		String[] counties =request.getParameterValues("county");
 	    System.out.println("******************county"+counties);
 		ModelAndView mv = new ModelAndView("manageCluster");		
@@ -136,6 +140,204 @@ public class AdminController {
 		mv.addObject("submitEditedClusterMsg", "Cluster edited successfully");
 		mv.addObject("editClusterDivStyle", "visibility: hidden");
 		return mv;
+	}
+
+	@RequestMapping(value="/addNode", method={RequestMethod.POST})
+	public ModelAndView addNode(HttpServletRequest request) throws ParseException {
+		// int clusterID = Integer.parseInt(request.getParameter("clusterID"));
+		// System.out.println("********************clusterID"+clusterID);
+	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
+		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
+		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
+		String name = request.getParameter("name");
+		System.out.println("********************name"+name);
+		String description = request.getParameter("description");
+		String status = request.getParameter("status");
+		String city = request.getParameter("city");
+		System.out.println("********************name"+name);
+		System.out.println("********************description"+description);
+	    Node node =new Node(name, description, status, city);
+	    System.out.println("**************custer"+node);
+		adminService.addNode(node);
+		ModelAndView mv = new ModelAndView("addNode");
+		mv.addObject("addNodeMsg", "Cluster added successfully");
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/getNode", method={RequestMethod.GET})
+	public ModelAndView getNode(HttpServletRequest request) throws ParseException {
+		// String clusterID = request.getParameter("clusterID");
+		// System.out.println("********************clusterID"+clusterID);
+	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
+		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
+		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
+		System.out.println("###################### In Search Node");
+		String[] city =request.getParameterValues("city");
+	    System.out.println("******************city"+city);
+		ModelAndView mv = new ModelAndView("manageNode");		
+		List<Node> nodes = adminService.getNode(city);
+		System.out.println("######################");
+		for (Node node:nodes) {
+			System.out.println("*******inside admin Controller ID"+node.getNodeId());
+			System.out.println("*******inside admin Controller Name"+node.getName());
+			System.out.println("*******inside admin Controller Description"+node.getDescription());
+			System.out.println("*******inside admin Controller Status"+node.getStatus());
+		}
+		System.out.println("######################");
+		mv.addObject("NodeList", nodes);
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/getNodeByFilter", method={RequestMethod.GET})
+	public ModelAndView getNodeByFilter(HttpServletRequest request) throws ParseException {
+		System.out.println("###################### In Search Node");
+		String[] city =request.getParameterValues("city");
+	    System.out.println("******************city"+city);
+		ModelAndView mv = new ModelAndView("editNode");		
+		List<Node> nodes = adminService.getNode(city);
+		System.out.println("######################");
+		for (Node node:nodes) {
+			System.out.println("*******inside admin Controller ID"+node.getNodeId());
+			System.out.println("*******inside admin Controller Name"+node.getName());
+			System.out.println("*******inside admin Controller Description"+node.getDescription());
+			System.out.println("*******inside admin Controller Status"+node.getStatus());
+		}
+		System.out.println("######################");
+		System.out.println("######################");
+		mv.addObject("NodeList", nodes);
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/editNode", method={RequestMethod.POST})
+	public ModelAndView editNode(HttpServletRequest request) throws ParseException {
+		System.out.println("*********** In Select node");
+		int nodeID = Integer.parseInt(request.getParameter("nodeID"));
+		Node node = null;
+		node = adminService.getNode(nodeID);
+		
+		ModelAndView mv = new ModelAndView("editNode");
+		if (request.getParameter("action").equals("Edit")) {
+			node.setName(request.getParameter("name"));
+			node.setDescription(request.getParameter("description"));
+			node.setStatus(request.getParameter("status"));
+			adminService.addNode(node);
+			mv.addObject("editNodeResponse", "Node update successfull");
+			return mv;
+		} else {
+			adminService.deleteNode(node);
+			mv.addObject("editNodeResponse", "Node deletion successfull");
+			return mv;
+		}
+		
+	}
+	
+
+	@RequestMapping(value="/addSensor", method={RequestMethod.POST})
+	public ModelAndView addSensor(HttpServletRequest request) throws ParseException {
+		// int clusterID = Integer.parseInt(request.getParameter("clusterID"));
+		// System.out.println("********************clusterID"+clusterID);
+	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
+		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
+		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
+		String name = request.getParameter("name");
+		System.out.println("********************name"+name);
+		String description = request.getParameter("description");
+		String status = request.getParameter("status");
+		String type = request.getParameter("type");
+		Float latitude = Float.parseFloat(request.getParameter("lat"));
+		Float longitude = Float.parseFloat(request.getParameter("long"));
+		String zip = request.getParameter("zip");
+		System.out.println("********************name"+name);
+		System.out.println("********************description"+description);
+	    Sensor sensor =new Sensor(name, description, status,type, latitude, longitude, zip);
+	    System.out.println("**************sensor"+sensor);
+		adminService.addSensor(sensor);
+		ModelAndView mv = new ModelAndView("addSensor");
+		mv.addObject("addSensorMsg", "Sensor added successfully");
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/getSensor", method={RequestMethod.GET})
+	public ModelAndView getSensor(HttpServletRequest request) throws ParseException {
+		// String clusterID = request.getParameter("clusterID");
+		// System.out.println("********************clusterID"+clusterID);
+	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
+		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
+		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
+		System.out.println("###################### In Search Sensor");
+		String[] zip =request.getParameterValues("zip");
+	    System.out.println("******************zip"+zip);
+		ModelAndView mv = new ModelAndView("manageSensor");		
+		List<Sensor> sensors = adminService.getSensor(zip);
+		System.out.println("######################");
+		for (Sensor sensor:sensors) {
+			System.out.println("*******inside admin Controller ID"+sensor.getSensorId());
+			System.out.println("*******inside admin Controller Name"+sensor.getName());
+			System.out.println("*******inside admin Controller Description"+sensor.getDescription());
+			System.out.println("*******inside admin Controller Status"+sensor.getStatus());
+		}
+		System.out.println("######################");
+		mv.addObject("SensorList", sensors);
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/getSensorByFilter", method={RequestMethod.GET})
+	public ModelAndView getSensorByFilter(HttpServletRequest request) throws ParseException {
+		System.out.println("###################### In Search Sensor");
+		String[] zip =request.getParameterValues("zip");
+	    System.out.println("******************zip"+zip);
+		ModelAndView mv = new ModelAndView("editSensor");		
+		List<Sensor> sensors = adminService.getSensor(zip);
+		System.out.println("######################");
+		for (Sensor sensor:sensors) {
+			System.out.println("*******inside admin Controller ID"+sensor.getSensorId());
+			System.out.println("*******inside admin Controller Name"+sensor.getName());
+			System.out.println("*******inside admin Controller Description"+sensor.getDescription());
+			System.out.println("*******inside admin Controller Status"+sensor.getStatus());
+		}
+		System.out.println("######################");
+		mv.addObject("SensorList", sensors);
+		return mv;
+		
+	}
+
+	@RequestMapping(value="/editSensor", method={RequestMethod.POST})
+	public ModelAndView editSensor(HttpServletRequest request) throws ParseException {
+		// System.out.println("*********** In Select node");
+		// int sensorID = Integer.parseInt(request.getParameter("sensorID"));
+		// Sensor sensor = null;
+		// sensor = adminService.getSensor(sensorID);
+		// ModelAndView mv = new ModelAndView("editSensor");
+		
+		// if (request.getParameter("action").equals("Edit")) {
+		// 	sensor.setName(request.getParameter("name"));
+		// 	sensor.setDescription(request.getParameter("description"));
+		// 	sensor.setStatus(request.getParameter("status"));
+		// 	adminService.addSensor(sensor);
+		// 	mv.addObject("editSensorResponse", "Sensor update successfull");
+		// 	return mv;
+		// } else {
+		// 	adminService.deleteSensor(sensor);
+		// 	mv.addObject("editSensorResponse", "Sensor deletion successfull");
+		// 	return mv;
+		// }
+
+		ModelAndView mv = new ModelAndView("editSensor");
+			return mv;
+		
 	}
 	
 
