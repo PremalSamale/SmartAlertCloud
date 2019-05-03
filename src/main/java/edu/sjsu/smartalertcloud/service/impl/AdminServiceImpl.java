@@ -162,4 +162,11 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	@Override
+	public List<Sensor> getSensor() {
+		// TODO Auto-generated method stub
+		List<Sensor> sensors = adminDao.getSensor();
+		return sensors;
+	}
+
 }

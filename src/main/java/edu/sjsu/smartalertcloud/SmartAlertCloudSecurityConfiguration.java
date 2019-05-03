@@ -32,7 +32,7 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
 		
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");
+        web.ignoring().antMatchers("/resources/**", "/getSensorData");
     }
     
     @Autowired
@@ -46,6 +46,7 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
 		auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
 	}*/
 
+	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.authorizeRequests()

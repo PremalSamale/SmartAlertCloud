@@ -27,6 +27,7 @@ public interface AdminService {
 	public List<Sensor> getSensor(String[] zip);
 	public Sensor getSensor(int sensorId);
 	public void deleteSensor(Sensor sensor);
+	public List<Sensor> getSensor();
 	
 
 }
