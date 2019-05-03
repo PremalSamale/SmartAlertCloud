@@ -16,25 +16,24 @@
 }
 </style>
 
-<style>
-  .main-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); /* Where the magic happens */
-    grid-auto-rows: 200px;
-    grid-gap: 20px;
-    margin: 20px;
-  }
-  
-  .overviewcard {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    font-size: 40px;
-    background-color: #d3d3;
-  } 
-  
-</style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Web Analytics - Real Time</title>
+
+	<!-- stylesheets -->
+	<link href="resources/assets/fonts/font-roboto.css" rel="stylesheet">
+	<link href="resources/assets/bootstrap/bootstrap4-alpha3.min.css" rel="stylesheet">
+	<link href="resources/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="resources/assets/web-analytics/style.css" rel="stylesheet">
+
+	<!-- scripts -->
+	<script src="resources/assets/jquery/jquery-3.1.0.min.js"></script>
+	<script src="resources/assets/tether/tether.min.js"></script>
+	<script src="resources/assets/bootstrap/bootstrap4-alpha3.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="resources/assets/web-analytics/real-time.js"></script>
 
 
 <link href="../Styles/ChartSampleStyleSheet.css" rel="stylesheet" />
@@ -49,7 +48,7 @@
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
  <link rel="stylesheet" href="../stylesheets/card.css">
- <style>
+<!--  <style>
 
   
    div.b {
@@ -59,7 +58,7 @@
   }
  
  </style>
- 
+  -->
  <style>
 body {
   font-family: "Lato", sans-serif;
@@ -101,33 +100,39 @@ body {
 }
 
 </style>
+
+
 </head>
 <body>
 
-
-
-<div class="sidenav">
- <h1 style="color: Orange;">Dashboard </h1>
-  <a href="/dashboard">IOT </a>
-  <a href="/mapView">Map View</a>
+ <div class="sidenav">
+<!--  <h1 style="color: Orange;">Dashboard </h1> -->
+  <a href="/dashboard">Real Time </a>
+   <a href="/sensorDataReport">Temperature Sensor Analysis</a>
+  <a href="/sensorData">Humidity & Wind Sensor Analysis</a> 
+  <a href="/clusterLocationView">View on Map</a>
+ <!--  <a href="/sensorMapView">Sensor view on Map</a> -->
+ 
+   
 </div>
 
 <div class="main">
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
-      <li ><a href="/home">Home</a></li>
-      <li><a href="/manageSensor">Manage Sensors</a></li>
-       <li><a href="/manageCluster">Manage Cluster</a></li>
-        <li><a href="/manageNode">Manage Nodes</a></li>
+      <li class="active"><a href="/home">Home</a></li>
+      <li class="active"><a href="/dashboard">Dashboard</a></li>
+      <li class="active"><a href="/manageSensor">Manage Sensors</a></li>
+       <li class="active"><a href="/manageCluster">Manage Cluster</a></li>
+        <li class="active"><a href="/manageNode">Manage Nodes</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-       <u>
-	   <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a>
-	        	&nbsp;&nbsp;     	
-	  </u>
+       
+	 <li class="active">  <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a> </li>
+	        	   	
+	 
 	  <form id="logoutForm" method="POST" action="${contextPath}/logout">
 	  </form>
 	  <!-- /container -->
@@ -135,118 +140,102 @@ body {
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </ul>
   </div>
-</nav>
-
+</nav> 
 
  
- <div class="main-overview">
- 
-<div class="overviewcard">
-    <div class="overviewcard__icon">Number of Sensors</div>
-    <div class="overviewcard__info">400</div>
-  </div>
- 
- 
-  <div class="overviewcard">
-    <div class="overviewcard__icon">Number of Nodes</div>
-    <div class="overviewcard__info">100</div>
-  </div> 
-  
-   <div class="overviewcard">
-    <div class="overviewcard__icon">Number of Clusters</div>
-    <div class="overviewcard__info">20</div>
-  </div>
- 
-</div>  
+<!--  <nav class="navbar navbar-fixed-top" id="header">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<div id="sidebar-toggle-button">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+				<div class="brand">
+					<a href="web-analytics-real-time.html">
+						<span class="hidden-xs-down m-r-3">Web Analytics </span><span class="lead">Real Time</span>
+					</a>
+				</div>
 
- <div style = "position:relative; left:10px; top:300px;" id="chart" ></div>
-<div class= "b" id="chart-container"></div> 
- 
+			</div>
+		</div>
+	</nav> -->
+	<!-- /header -->
 
- <%
- 
- // store chart config name-config value pair
- Map<String, String> chartConfig = new HashMap<String, String>();
-/*  chartConfig.put("caption", "Regions With Most Wildfire Alerts [2017-18]");
- chartConfig.put("subCaption", "In MMbbl = One Million barrels");
- chartConfig.put("xAxisName", "Country");
- chartConfig.put("yAxisName", "Reserves (MMbbl)");
- chartConfig.put("numberSuffix", "k");
- chartConfig.put("theme", "fusion") ;*/
- chartConfig.put("caption", "Sensor status");
- chartConfig.put("subCaption", "In MMbbl = One Million barrels");
- chartConfig.put("xAxisName", "Country");
- chartConfig.put("yAxisName", "Reserves (MMbbl)");
- chartConfig.put("numberSuffix", "k");
- chartConfig.put("theme", "fusion");
- 
- //store label-value pair
- Map<String, Integer> dataValuePair = new HashMap<String, Integer>();
- dataValuePair.put("Maintanance", 20);
- dataValuePair.put("Turn off", 5);
- dataValuePair.put("Turn On", 200);
- dataValuePair.put("Active", 140);
-/*  dataValuePair.put("Central Coast", 115);
- dataValuePair.put("South Coast", 100);
- dataValuePair.put("Shasta Cascade", 30);
- dataValuePair.put("NOrth Coast", 30); */
- 
-  StringBuilder jsonData = new StringBuilder();
-  StringBuilder data = new StringBuilder();
-  // json data to use as chart data source
-  jsonData.append("{'chart':{");
-  for(Map.Entry conf:chartConfig.entrySet())
-  {
-      jsonData.append("'" + conf.getKey()+"':'"+conf.getValue() + "',");
-  }
- 
-  jsonData.replace(jsonData.length() - 1, jsonData.length() ,"},");
+	<!-- sidebar -->
+<!-- 	<div class="sidebar-toggle" id="sidebar">
+		<ul class="nav nav-sidebar">
+			<li>
+				<a href="/dashboard" class="active">
+					<i class="fa fa-clock-o fa-lg fa-fw" aria-hidden="true"></i>
+					<span>Real Time</span>
+				</a>
+			</li>
+			<li role="separator" class="divider"></li>
 
-  // build  data object from label-value pair
-  data.append("'data':[");
+			
+		</ul>
+	</div> -->
+	<!-- /sidebar -->
 
-  for(Map.Entry pair:dataValuePair.entrySet())
-  {
-      data.append("{'label':'" + pair.getKey() + "','value':'" + pair.getValue() +"'},");
-  }
-  data.replace(data.length() - 1, data.length(),"]");
+	<!-- page-content-wrapper -->
+	<div class="page-content-toggle" id="page-content-wrapper">
+		<div class="container-fluid">
 
-  jsonData.append(data.toString());
-  jsonData.append("}");
-  
-  
-//Create chart instance
-  // charttype, chartID, width, height,containerid, data format, data
-  FusionCharts firstChart = new FusionCharts(
-		  "column2d", 
-		  "first_chart", 
-		  "800",
-		  "330", 
-		  "chart",
-		  "json", 
-		  jsonData.toString()
- );
-  FusionCharts piechart = new FusionCharts(
-		  "pie2d", 
-		  "piechart", 
-		  "800",
-		  "500", 
-		  "chart-container",
-		  "json", 
-		  jsonData.toString()
- );
+			<!-- 1st row -->
+			<div class="row m-b-2">
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title"> Active Sensors</h4>
+						<div id="users-device-doughnut-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title">Active Nodes</h4>
+						<div id="users-medium-pie-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title">Active Clusters</h4>
+						<div id="users-category-pie-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /1st row -->
 
- %>
- <%= firstChart.render() %> 
-  <%= piechart.render() %>
+			<!-- 2nd row -->
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card card-block">
+						<h4 class="card-title m-b-2">Temperature Sensors status Per Minute</h4>
+						<div id="page-views-per-minute-column-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-block">
+						<h4 class="card-title m-b-2"> Node status Per Second</h4>
+						<div id="page-views-per-second-column-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /2nd row -->
 
+			<!-- 3rd row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card card-block">
+						<h4 class="card-title">Location wise status </h4>
+						<div id="users-state-bar-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /3rd row -->
 
+		</div>
+		<!-- /.container-fluid -->
 
-   
+	</div>
+	<!-- /page-content-wrapper -->
  </div>
- <footer style = "position:relative; left:10px; top:250px; class="footer">
-  <div class="footer__copyright">&copy; 2018 MTH</div>
-  <div class="footer__signature">Made by SJSU Students</div>
-</footer>
 </body>
 </html>

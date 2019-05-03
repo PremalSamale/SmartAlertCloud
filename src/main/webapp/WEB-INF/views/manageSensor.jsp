@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
+
    <head>
       <title>Manage Sensor</title>
       <link rel="stylesheet" href="../stylesheets/style.css">
@@ -145,4 +146,5 @@
          </div>
       </div>
    </body>
+
 </html>
