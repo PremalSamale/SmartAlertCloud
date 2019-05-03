@@ -65,7 +65,7 @@
  </script> -->
 				<body >
 					<div class="sidenav">
-						<h1 style="color: Orange;">Manage Node</h1>
+						<h1 style="color: Orange;">Manage Sensor</h1>
 						<a href="/addSensor">Add Sensor</a>
 						<a href="/manageNode">Search Node</a>
 						<a href="/editNode">Update Node</a>

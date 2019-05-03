@@ -69,7 +69,7 @@ body {
 	
 	
 <div class="sidenav">
-  <h1 style="color: Orange;">Manage Cluster</h1>
+  <h1 style="color: Orange;">Manage Node</h1>
   <a href="/addNode">Add Node</a>
   <a href="/manageNode">Search Node</a>
   <a href="/editNode">Update Node</a>

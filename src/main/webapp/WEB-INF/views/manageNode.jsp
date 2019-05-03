@@ -50,7 +50,7 @@
  
    <body >
       <div class="sidenav">
-         <h1 style="color: Orange;">Manage Cluster</h1>
+         <h1 style="color: Orange;">Manage Node</h1>
          <a href="/addNode">Add Node</a>
          <a href="/manageNode">Search Node</a>
          <a href="/editNode">Update Node</a>
@@ -82,8 +82,8 @@
                <form action="getNode" method="get">
                   <h2 class="form-heading">Search Filter</h2>
                   <div class="form-group ${error != null ? 'has-error' : ''}">
-                     <span style="color:green">${searchClusterMsg}</span>
-                     <span style="color:red">${searchClusterErrMsg}</span>
+                     <span style="color:green">${searchNodeMsg}</span>
+                     <span style="color:red">${searchNodeErrMsg}</span>
                      <table class="col-lg-12 col-md-12">
                         <tr>
                            <td>

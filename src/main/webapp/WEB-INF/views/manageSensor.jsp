@@ -67,7 +67,7 @@
 	 </script>
    <body >
       <div class="sidenav">
-         <h1 style="color: Orange;">Manage Cluster</h1>
+         <h1 style="color: Orange;">Manage Sensor</h1>
          <a href="/addSensor">Add Sensor</a>
          <a href="/manageSensor">Search Sensor</a>
          <a href="/editSensor">Update Sensor</a>
