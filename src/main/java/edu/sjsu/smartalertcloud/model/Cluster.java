@@ -30,10 +30,11 @@ public class Cluster {
 	    private int clusterID;
 	   /* @OneToMany(fetch = FetchType.EAGER, mappedBy="Cluster")
 	    private Set<Node> node = new HashSet<>();*/
-	    private float latitude;
-	    private float longitude;
-	    @Enumerated(EnumType.STRING)
-			private County county;
+	    private double latitude;
+	    private double longitude;
+	    private String county;
+	    private String name;
+		private String address;
 			
 			// @OneToMany(mappedBy = "Node", cascade = CascadeType.ALL)
 			// private Set<Node> nodes;
@@ -42,12 +43,14 @@ public class Cluster {
 			
 			// TODO Auto-generated constructor stub
 		}
-		public Cluster(/*Set<Node> node, */float latitude, float longitude, County county) {
+		public Cluster(double latitude, double longitude, String county, String name, String address) {
 			
 			/*this.node = node;*/
 			this.latitude = latitude;
 			this.longitude = longitude;
 			this.county = county;
+			this.name = name;
+			this.address = address;
 		}
 		public int getClusterID() {
 			return clusterID;
@@ -61,28 +64,40 @@ public class Cluster {
 		// public void setNodes(Set<Node> nodes) {
 		// 		nodes.forEach(x -> x.setCluster(this));
 		// }
-		public float getLatitude() {
+		public double getLatitude() {
 			return latitude;
 		}
-		public void setLatitude(float latitude) {
+		public void setLatitude(double latitude) {
 			this.latitude = latitude;
 		}
-		public float getLongitude() {
+		public double getLongitude() {
 			return longitude;
 		}
-		public void setLongitude(float longitude) {
+		public void setLongitude(double longitude) {
 			this.longitude = longitude;
 		}
-		public County getCounty() {
+		public String getCounty() {
 			return county;
 		}
-		public void setCounty(County county) {
+		public void setCounty(String county) {
 			this.county = county;
+		}
+		public String getName() {
+		return name;
+	}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getAddress() {
+			return address;
+		}
+		public void setAddress(String address) {
+			this.address = address;
 		}
 		@Override
 		public String toString() {
 			return "Cluster [clusterID=" + clusterID + ", latitude=" + latitude + ", longitude=" + longitude
-					+ ", county=" + county + "]";
+					+ ", county=" + county + ", name=" + name + ", address=" + address + "]";
 		}
 	
 

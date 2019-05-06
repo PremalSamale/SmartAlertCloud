@@ -102,25 +102,12 @@ body {
 			<div class="form-group ${error != null ? 'has-error' : ''}">
 				<span style="color:green">${searchClusterMsg}</span>
 				<span style="color:red">${searchClusterErrMsg}</span>
-				<table class="col-lg-12 col-md-12">
-					<tr>
-						<!-- <td><input name="clusterID" type="text" class="form-control" placeholder="clusterID" autofocus="true"/></td> -->						
-						<td>
-							<select name="county" type="text" class="form-control" size="3" multiple autofocus="true">
-								<option value="" disabled selected>County</option>
-							 	<option value="ALAMEDA">Alameda </option>
-			  					<option value="LOS_ANGELES">Los_Angeles </option>
-			  					<option value="VENTURA">Ventura</option>
-			  					<option value="SAN_BANITO">San_Benito</option>
-			  					<option value="YOLO">Yolo</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td colspan='7'><button class="btn btn-lg btn-primary btn-block" type="submit">Search Cluster</button></td>
-					</tr>
-				</table>
 			</div>
+			<div class="col-md-6">
+                <label class="m10s0">County :</label>
+                <input class="m5s0 box-format" id="county" type="text" value="${county}" name = "county"><br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Search Cluster</button><br>
+            </div>
 		</form>
 	</div>
 </div>
@@ -131,6 +118,8 @@ body {
 	<div class="col-lg-12 col-md-12">
 		<table class="table table-bordered table-striped table-hover col-md-1" border="1">
 			<th>clusterID</th>
+			<th>Name</th>
+			<th>Address</th>
 			<th>County </th>
 			<th> Latitude </th>
 			<th>Longitude </th>			
@@ -140,7 +129,9 @@ body {
 			<c:forEach items="${ClusterList}" var="cluster"> 
 				<tr>
 					<form action="chooseClusterToEditOrDelete" method="post">
-						<td><input name="clusterID" type="text" autofocus="true" value="${cluster.clusterID}"/></td>
+						<td><input name="clusterID" type="text" autofocus="true" readonly background-color="#D3D3D3" value="${cluster.clusterID}"/></td>
+						<td><input name="name" type="text" autofocus="true" value="${cluster.name}"/></td>
+						<td><input name="address" type="text" autofocus="true" value="${cluster.address}"/></td>
 						<td><input name="county" type="text" autofocus="true" value="${cluster.county}"/></td>
 						<td><input name="latitude" type="text" autofocus="true" value="${cluster.latitude}"/></td>
 				    	<td><input name="longitude" type="text" autofocus="true" value="${cluster.longitude}"/></td>					
@@ -157,47 +148,6 @@ body {
 		<span style="color:green">${submitEditedClusterMsg}</span>
 	</div>
 </div>
-<div style="${editClusterDivStyle}" class="container">
-	<div class="col-md-12">
-		<form action="submitEditedCluster" method="post">
-			<h3 class="form-heading">Edit Cluster</h3>
-			<div class="form-group ${error != null ? 'has-error' : ''}">
-				<span style="color:green">${submitEditedClusterMsg}</span>
-				<span style="color:red">${submitEditedClusterErrMsg}</span>
-				<table class="col-lg-12 col-md-12">
-					<tr><input name="clusterID" value="${clusterID}" required="required" type="hidden" class="form-control" placeholder="clusterID" autofocus="true"/></tr>	
-					<tr>
-						
-						<td><label>County</label></td>
-						<td>
-							<select name="county" value="${county}" required="required" type="text" class="form-control" autofocus="true">
-						        <option value="" disabled selected>County</option>
-								 <option value="ALAMEDA">ALAMEDA </option>
-			 					 <option value="LOS_ANGELES">LOS_ANGELES </option>
-			  					 <option value="VENTURA">VENTURA</option>
-			  					<option value="SAN_BANITO">SAN_BANITO</option>
-			  					<option value="YOLO">YOLO</option>
-							</select>
-						</td>
-					</tr>
-				    <tr>
-						<td><label>latitude</label></td>
-						<td><input name="latitude" value="${latitude}" required="required" type="text" class="col-lg-6 col-md-6 form-control" placeholder="latitude" autofocus="true"/></td>
-					</tr>
-					
-					<tr>
-						<td><label>longitude</label></td>
-						<td><input name="longitude" value="${longitude}" required="required" type="text" class="col-lg-6 col-md-6 form-control" placeholder="logitude" autofocus="true"/></td>
-					</tr>
-					
-					<tr>
-						<td colspan='2'><button class="btn btn-lg btn-primary btn-block" type="submit">Edit Cluster</button></td>
-					</tr>
-				</table>
-			</div>
-		</form>
-	</div>
-</div>	
 </div>
 </body>
 </html>

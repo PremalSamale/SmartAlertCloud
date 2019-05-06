@@ -108,24 +108,11 @@ body {
 			<div class="form-group ${error != null ? 'has-error' : ''}">
 				<span style="color:green">${searchClusterMsg}</span>
 				<span style="color:red">${searchClusterErrMsg}</span>
-				<table class="col-lg-12 col-md-12">
-					<tr>
-						<!-- <td><input name="clusterID" type="text" class="form-control" placeholder="clusterID" autofocus="true"/></td> -->						
-						<td>
-							<select name="county" type="text" class="form-control" size="3" multiple autofocus="true">
-								<option value="" disabled selected>County</option>
-							 	<option value="ALAMEDA">Alameda </option>
-			  					<option value="LOS_ANGELES">Los_Angeles </option>
-			  					<option value="VENTURA">Ventura</option>
-			  					<option value="SAN_BANITO">San_Benito</option>
-			  					<option value="YOLO">Yolo</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td colspan='7'><button class="btn btn-lg btn-primary btn-block" type="submit">Search Cluster</button></td>
-					</tr>
-				</table>
+			</div>
+			<div class="col-md-6">
+			    <label class="m10s0">County :</label>
+                <input class="m5s0 box-format" id="county" type="text" value="${county}" name = "county"><br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Search Cluster</button><br>
 			</div>
 		</form>
 	</div>
@@ -135,13 +122,15 @@ body {
 	<div class="col-lg-12 col-md-12">
 		<table class="table table-bordered table-striped table-hover col-md-1" border="1">
 			<th>Cluster ID</th>
-			<th>County </th>
-			<th> Latitude </th>
-			<th>Longitude </th>
+			<th>Name</th>
+			<th>County</th>
+			<th>Latitude</th>
+			<th>Longitude</th>
 			<c:forEach items="${ClusterList}" var="cluster"> 
 			
 				<tr>
 					<td>${cluster.clusterID}</td>
+					<td>${cluster.name}</td>
 					<td>${cluster.county}</td>
 				    <td>${cluster.latitude}</td>
 					<td>${cluster.longitude}</td>

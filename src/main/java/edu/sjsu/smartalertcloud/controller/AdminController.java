@@ -1,18 +1,24 @@
 package edu.sjsu.smartalertcloud.controller;
 
+import java.io.*;
 import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageComponents;
+import com.byteowls.jopencage.model.JOpenCageForwardRequest;
+import com.byteowls.jopencage.model.JOpenCageLatLng;
+import com.byteowls.jopencage.model.JOpenCageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.sjsu.smartalertcloud.model.Cluster;
-import edu.sjsu.smartalertcloud.model.County;
 import edu.sjsu.smartalertcloud.service.AdminService;
 
 import edu.sjsu.smartalertcloud.model.Node;
@@ -34,39 +40,59 @@ public class AdminController {
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
 		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
-		float latitude =Float.parseFloat( request.getParameter("latitude"));
-		float longitude = Float.parseFloat(request.getParameter("longitude"));
-		County county = County.valueOf(request.getParameter("county"));
+		double latitude =Double.parseDouble( request.getParameter("latitude"));
+		double longitude = Double.parseDouble(request.getParameter("longitude"));
+		String county = request.getParameter("county");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
 		System.out.println("********************latitude"+latitude);
 		System.out.println("********************longitude"+longitude);
-	    Cluster cluster =new Cluster(latitude, longitude, county);
+	    Cluster cluster =new Cluster(latitude, longitude, county, name, address);
 	    System.out.println("**************custer"+cluster);
 		adminService.addCluster(cluster);
 		ModelAndView mv = new ModelAndView("addCluster");
 		mv.addObject("addClusterMsg", "Cluster added successfully");
 		return mv;
-		
 	}
-	
-	
+
+	@PostMapping("/getLatitudeLongitudeCounty")
+	public ModelAndView getLatitudeAndLongitude(HttpServletRequest request) throws IOException {
+		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("7a3efd33126344a7bd1de9187ab102bc");
+		JOpenCageForwardRequest jOpenCageForwardRequest = new JOpenCageForwardRequest(request.getParameter("address"));
+		jOpenCageForwardRequest.setRestrictToCountryCode("us");
+		JOpenCageResponse response = jOpenCageGeocoder.forward(jOpenCageForwardRequest);
+		JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+		JOpenCageComponents jOpenCageComponents = response.getFirstComponents();
+		String county = jOpenCageComponents.getCounty();
+		double latitude = firstResultLatLng.getLat();
+		double longitude = firstResultLatLng.getLng();
+		ModelAndView mv = new ModelAndView("addCluster");
+		mv.addObject("latitude", latitude);
+		mv.addObject("longitude", longitude);
+		mv.addObject("county", county);
+		mv.addObject("address", request.getParameter("address"));
+		return mv;
+	}
+
 	@RequestMapping(value="/searchClusterForAdmin", method={RequestMethod.POST})
 	public ModelAndView searchCluster(HttpServletRequest request) throws ParseException {	
-		String[] counties =request.getParameterValues("county");
-	    System.out.println("******************county"+counties);
+		String county =request.getParameter("county");
+	    System.out.println("******************county"+county);
 		ModelAndView mv = new ModelAndView("manageCluster");		
-		List<Cluster> clusters = adminService.searchCluster(counties);
+		List<Cluster> clusters = adminService.searchCluster(county);
 		System.out.println("######################");
 		for (Cluster cluster:clusters) {
 			int id =cluster.getClusterID();
-			County county=cluster.getCounty();
-			float latitude=cluster.getLatitude();
-			float longitude=cluster.getLongitude();
+			String countyString=cluster.getCounty();
+			double latitude=cluster.getLatitude();
+			double longitude=cluster.getLongitude();
 			System.out.println("*******inside admin Controller ID"+id);
-			System.out.println("*******inside admin Controller COUNTY"+county);
+			System.out.println("*******inside admin Controller COUNTY"+countyString);
 			System.out.println("*******inside admin Controller LATITUDE"+latitude);
 			System.out.println("*******inside admin Controller LONGITUDE"+longitude);
 		}
 		System.out.println("######################");
+		mv.addObject("county", county);
 		mv.addObject("ClusterList", clusters);
 		return mv;
 		
@@ -77,12 +103,12 @@ public class AdminController {
 		//String clusterID = request.getParameter("clusterID");
 	//	System.out.println("********************clusterID"+clusterID);
 
-		String[] county =request.getParameterValues("county");
+		String county =request.getParameter("county");
 
 		ModelAndView mv = new ModelAndView("editCluster");		
 		List<Cluster> clusters = adminService.searchCluster(county);
+		mv.addObject("county", county);
 		mv.addObject("ClusterList", clusters);
-		mv.addObject("editClusterDivStyle", "visibility: hidden");
 		return mv;
 		
 	}
@@ -101,37 +127,23 @@ public class AdminController {
 		
 		ModelAndView mv = new ModelAndView("editCluster");
 		if (request.getParameter("action").equals("Edit")) {
+			cluster.setCounty(request.getParameter("county"));
+			cluster.setLatitude(Double.valueOf(request.getParameter("latitude")));
+			cluster.setLongitude(Double.valueOf(request.getParameter("longitude")));
+			cluster.setName(request.getParameter("name"));
+			cluster.setAddress(request.getParameter("address"));
+			adminService.addCluster(cluster);
 			mv.addObject("clusterID", cluster.getClusterID());
 			mv.addObject("county",cluster.getCounty());
 			mv.addObject("latitude", cluster.getLatitude());
 			mv.addObject("longitude",cluster.getLongitude());
-			mv.addObject("editClusterDivStyle", "");
+			mv.addObject("submitEditedClusterMsg", "Cluster edited successfully");
 			return mv;
 		} else {
 			adminService.deleteCluster(cluster);
 			mv.addObject("submitEditedClusterMsg", "Cluster deleted successfully");
-			mv.addObject("editClusterDivStyle", "visibility: hidden");
 			return mv;
 		}
-	}
-
-	@RequestMapping(value="/submitEditedCluster", method={RequestMethod.POST})
-	public ModelAndView submitEditedCluster(HttpServletRequest request) {
-		String clusterId = request.getParameter("clusterID");
-		Cluster cluster = null;
-		if(clusterId !=null && !clusterId.equals("")) {
-			int clusterID = Integer.parseInt(clusterId);
-			cluster = adminService.getCluster(clusterID);
-		}
-		//cluster.setClusterID(Integer.parseInt(request.getParameter("clusterID")));	
-		cluster.setCounty(County.valueOf(request.getParameter("county")));
-		cluster.setLatitude(Float.parseFloat(request.getParameter("latitude")));
-		cluster.setLongitude(Float.parseFloat(request.getParameter("longitude")));
-		adminService.addCluster(cluster);
-		ModelAndView mv = new ModelAndView("editCluster");
-		mv.addObject("submitEditedClusterMsg", "Cluster edited successfully");
-		mv.addObject("editClusterDivStyle", "visibility: hidden");
-		return mv;
 	}
 
 	@RequestMapping(value="/addNode", method={RequestMethod.POST})

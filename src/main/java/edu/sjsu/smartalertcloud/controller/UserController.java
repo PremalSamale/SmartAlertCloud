@@ -146,7 +146,6 @@ public class UserController {
     @RequestMapping(value="/editCluster",  method=RequestMethod.GET)
     protected ModelAndView editCluster() {
         ModelAndView modelAndView = new ModelAndView("editCluster");
-        modelAndView.addObject("editClusterDivStyle", "visibility: hidden");
         return modelAndView;
     }
     

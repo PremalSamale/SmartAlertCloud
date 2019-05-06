@@ -15,7 +15,7 @@ public interface AdminService {
 	
 	public List<Cluster> getCluster();
 	
-	public List<Cluster> searchCluster(String[] counties);
+	public List<Cluster> searchCluster(String county);
 	public Cluster getCluster(int clusterId);
 
 	public void addNode(Node node);
