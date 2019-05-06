@@ -112,10 +112,10 @@ body {
 	
 		
 		 
-		  <div class="form-group">
+		<!--   <div class="form-group">
 			<label class="m10s0">Cluster ID :</label> 
 			<input class="m5s0 box-format"	id="clusterID" type="text" name = "clusterID"> <br />
-		</div> 
+		</div> --> 
 		
 	<!-- 	 <div class="form-group">
 			<label class="m10s0">Last Date Of Maintenance :</label> 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.sjsu.smartalertcloud.dao.AdminDao;
+import edu.sjsu.smartalertcloud.model.City;
 import edu.sjsu.smartalertcloud.model.Cluster;
 import edu.sjsu.smartalertcloud.model.County;
 import edu.sjsu.smartalertcloud.service.AdminService;
@@ -40,24 +41,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Cluster> searchCluster(String[] counties, String clusterID) {
+	public List<Cluster> searchCluster(String[] counties) {
 		// TODO Auto-generated method stub
 		List<Cluster> allClusters = adminDao.searchCluster();
-	
-		clusterID = clusterID.replaceAll("  ", " ").trim();
-		int clusterIDInt = 0;
-		if ( clusterID != null && !clusterID.equals("")) clusterIDInt = Integer.parseInt(clusterID);
-		
-		List<Cluster> filteredClustersForClusterID = null;
-		if (clusterIDInt != 0) {
-			filteredClustersForClusterID = new ArrayList<Cluster>();
-			for (Cluster cluster: allClusters) {
-				if (cluster.getClusterID() == clusterIDInt) {
-					filteredClustersForClusterID.add(cluster);
-				}
-			}
-		}
-		
+
 		List<Cluster> filteredClustersForCounty= null;
 		if (counties != null ) {
 			filteredClustersForCounty = new ArrayList<Cluster>();
@@ -72,19 +59,13 @@ public class AdminServiceImpl implements AdminService {
 
 		List<Cluster> filteredClusters = new ArrayList<Cluster>();
 		filteredClusters.addAll(allClusters);
-		if (!(filteredClustersForClusterID == null && filteredClustersForCounty == null)) {
+		if (!(filteredClustersForCounty == null)) {
 			
-			if (filteredClustersForClusterID != null) filteredClusters.retainAll(filteredClustersForClusterID);
+			/*if (filteredClustersForClusterID != null) filteredClusters.retainAll(filteredClustersForClusterID);*/
 			if (filteredClustersForCounty != null) filteredClusters.retainAll(filteredClustersForCounty);
 			
 		}
-//		for(Movie movie: allMovies) {
-//			if (movie.getTitle().toLowerCase().contains(keywords.toLowerCase())) {
-//				filteredMovies.add(movie);
-//			}
-//		}
-
-		
+	
 		List<Cluster> clusterInfo= new ArrayList <Cluster>();
 		for (Cluster c:filteredClusters) {
 			int id =c.getClusterID();
@@ -95,8 +76,8 @@ public class AdminServiceImpl implements AdminService {
 			System.out.println("*******inside adminserviceImpl COUNTY"+county);
 			System.out.println("*******inside adminserviceImpl LATITUDE"+latitude);
 			System.out.println("*******inside adminserviceImpl LONGITUDE"+longitude);
-			Cluster cInfo=new Cluster(id,longitude,latitude,county);
-			clusterInfo.add(cInfo);
+
+			clusterInfo.add(c);
 		}
 
 		return clusterInfo;
@@ -116,11 +97,50 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Node> getNode(String[] city) {
+	public List<Node> getNode(String[] cities) {
 		// TODO Auto-generated method stub
-		List<Node> nodes = adminDao.getNode(city);
-		return nodes;
+		List<Node> allNodes = adminDao.getNode();
+		
+		List<Node> filteredNodeForCity= null;
+		if (cities != null ) {
+			filteredNodeForCity = new ArrayList<Node>();
+			for (String eachCity: cities) {
+				//City city = City.valueOf(eachCity.toUpperCase());
+				for (Node node:allNodes) {
+					System.out.println("adminserviceimpl city"+node.getCity());
+					System.out.println("adminserviceimpl cities"+eachCity.toUpperCase());
+				if (node.getCity()==eachCity) {
+					filteredNodeForCity.add(node);
+				}
+				}
+			}
+		}
+
+		List<Node> filteredNodes = new ArrayList<Node>();
+		filteredNodes.addAll(allNodes);
+		if (!(filteredNodeForCity == null)) {
+			
+			/*if (filteredClustersForClusterID != null) filteredClusters.retainAll(filteredClustersForClusterID);*/
+			if (filteredNodeForCity != null) filteredNodes.retainAll(filteredNodeForCity);
+			
+		}
+	
+		List<Node> nodeInfo= new ArrayList <Node>();
+		for (Node n:filteredNodes) {
+			System.out.println("*******inside adminserviceImpl Node city"+n.getCity());
+			System.out.println("*******inside adminserviceImpl description"+n.getDescription());
+			System.out.println("*******inside adminserviceImpl LATITUDE"+n.getLatitude());
+			System.out.println("*******inside adminserviceImpl LONGITUDE"+n.getLongitude());
+			System.out.println("*******inside adminserviceImpl Status"+n.getStatus());
+			nodeInfo.add(n);
+		}
+
+		return nodeInfo;
 	}
+
+	/*	List<Node> nodes = adminDao.getNode(city);
+		return nodes;
+	}*/
 
 	@Override
 	public Node getNode(int nodeId) {

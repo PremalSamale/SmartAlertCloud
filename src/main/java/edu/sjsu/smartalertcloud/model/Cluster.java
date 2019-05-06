@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -23,6 +25,8 @@ import java.util.stream.Stream;
 @Entity
 public class Cluster {
 		@Id
+		@Column
+		@GeneratedValue(strategy = GenerationType.AUTO)
 	    private int clusterID;
 	   /* @OneToMany(fetch = FetchType.EAGER, mappedBy="Cluster")
 	    private Set<Node> node = new HashSet<>();*/
@@ -35,12 +39,11 @@ public class Cluster {
 			// private Set<Node> nodes;
 	    
 		public Cluster() {
-			super();
+			
 			// TODO Auto-generated constructor stub
 		}
-		public Cluster(int clusterID, /*Set<Node> node, */float latitude, float longitude, County county) {
-			super();
-			this.clusterID = clusterID;
+		public Cluster(/*Set<Node> node, */float latitude, float longitude, County county) {
+			
 			/*this.node = node;*/
 			this.latitude = latitude;
 			this.longitude = longitude;
@@ -49,9 +52,9 @@ public class Cluster {
 		public int getClusterID() {
 			return clusterID;
 		}
-		public void setClusterID(int clusterID) {
+	/*	public void setClusterID(int clusterID) {
 			this.clusterID = clusterID;
-		}
+		}*/
 		// public Set<Node> getNodes() {
 		// 	return nodes;
 		// }
@@ -75,6 +78,11 @@ public class Cluster {
 		}
 		public void setCounty(County county) {
 			this.county = county;
+		}
+		@Override
+		public String toString() {
+			return "Cluster [clusterID=" + clusterID + ", latitude=" + latitude + ", longitude=" + longitude
+					+ ", county=" + county + "]";
 		}
 	
 

@@ -79,7 +79,7 @@
          </nav>
          <div class="container">
             <div class="col-lg-12 col-md-12">
-               <form action="getNode" method="get">
+               <form action="getNode" method="post">
                   <h2 class="form-heading">Search Filter</h2>
                   <div class="form-group ${error != null ? 'has-error' : ''}">
                      <span style="color:green">${searchNodeMsg}</span>

@@ -170,6 +170,12 @@ public class AdminDaoImpl implements AdminDao{
 		SessionFactory sf = con.buildSessionFactory(reg);
 		Session session = sf.openSession();
 		List<Node> nodes = session.createCriteria(Node.class).list();
+		for(Node node:nodes) {
+			System.out.println("***************city"+node.getCity());
+			System.out.println("***************description"+node.getDescription());
+			System.out.println("***************name"+node.getName());
+			System.out.println("*********************status"+node.getStatus());
+		}
 		session.close();
 		return nodes;
 	}

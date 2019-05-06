@@ -27,8 +27,8 @@ public class AdminController {
 	
 	@RequestMapping(value="/addCluster", method={RequestMethod.POST})
 	public ModelAndView addCluster(HttpServletRequest request) throws ParseException {
-		int clusterID = Integer.parseInt(request.getParameter("clusterID"));
-		System.out.println("********************clusterID"+clusterID);
+		//int clusterID = Integer.parseInt(request.getParameter("clusterID"));
+	//	System.out.println("********************clusterID"+clusterID);
 	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
 		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -39,7 +39,7 @@ public class AdminController {
 		County county = County.valueOf(request.getParameter("county"));
 		System.out.println("********************latitude"+latitude);
 		System.out.println("********************longitude"+longitude);
-	    Cluster cluster =new Cluster(clusterID, latitude, longitude, county);
+	    Cluster cluster =new Cluster(latitude, longitude, county);
 	    System.out.println("**************custer"+cluster);
 		adminService.addCluster(cluster);
 		ModelAndView mv = new ModelAndView("addCluster");
@@ -50,19 +50,11 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/searchClusterForAdmin", method={RequestMethod.POST})
-	public ModelAndView searchCluster(HttpServletRequest request) throws ParseException {
-		String clusterID = request.getParameter("clusterID");
-		System.out.println("********************clusterID"+clusterID);
-	//	Genre genre = Genre.valueOf(request.getParameter("genre"));
-		/*SimpleDateFormat formatter=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");  
-		formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
-		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
-		
+	public ModelAndView searchCluster(HttpServletRequest request) throws ParseException {	
 		String[] counties =request.getParameterValues("county");
 	    System.out.println("******************county"+counties);
 		ModelAndView mv = new ModelAndView("manageCluster");		
-		List<Cluster> clusters = adminService.searchCluster(counties, clusterID);
+		List<Cluster> clusters = adminService.searchCluster(counties);
 		System.out.println("######################");
 		for (Cluster cluster:clusters) {
 			int id =cluster.getClusterID();
@@ -82,13 +74,13 @@ public class AdminController {
 	
 	@RequestMapping(value="/searchClusterForEdit", method={RequestMethod.POST})
 	public ModelAndView searchClusterForEdit(HttpServletRequest request) throws ParseException {
-		String clusterID = request.getParameter("clusterID");
-		System.out.println("********************clusterID"+clusterID);
+		//String clusterID = request.getParameter("clusterID");
+	//	System.out.println("********************clusterID"+clusterID);
 
 		String[] county =request.getParameterValues("county");
 
 		ModelAndView mv = new ModelAndView("editCluster");		
-		List<Cluster> clusters = adminService.searchCluster(county, clusterID);
+		List<Cluster> clusters = adminService.searchCluster(county);
 		mv.addObject("ClusterList", clusters);
 		mv.addObject("editClusterDivStyle", "visibility: hidden");
 		return mv;
@@ -131,7 +123,7 @@ public class AdminController {
 			int clusterID = Integer.parseInt(clusterId);
 			cluster = adminService.getCluster(clusterID);
 		}
-		cluster.setClusterID(Integer.parseInt(request.getParameter("clusterID")));	
+		//cluster.setClusterID(Integer.parseInt(request.getParameter("clusterID")));	
 		cluster.setCounty(County.valueOf(request.getParameter("county")));
 		cluster.setLatitude(Float.parseFloat(request.getParameter("latitude")));
 		cluster.setLongitude(Float.parseFloat(request.getParameter("longitude")));
@@ -167,7 +159,7 @@ public class AdminController {
 		
 	}
 
-	@RequestMapping(value="/getNode", method={RequestMethod.GET})
+	@RequestMapping(value="/getNode", method={RequestMethod.POST})
 	public ModelAndView getNode(HttpServletRequest request) throws ParseException {
 		// String clusterID = request.getParameter("clusterID");
 		// System.out.println("********************clusterID"+clusterID);
