@@ -104,7 +104,7 @@ body {
 				<span style="color:red">${searchClusterErrMsg}</span>
 				<table class="col-lg-12 col-md-12">
 					<tr>
-						<td><input name="clusterID" type="text" class="form-control" placeholder="clusterID" autofocus="true"/></td>						
+						<!-- <td><input name="clusterID" type="text" class="form-control" placeholder="clusterID" autofocus="true"/></td> -->						
 						<td>
 							<select name="county" type="text" class="form-control" size="3" multiple autofocus="true">
 								<option value="" disabled selected>County</option>

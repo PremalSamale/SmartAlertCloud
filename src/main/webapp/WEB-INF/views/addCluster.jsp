@@ -62,10 +62,13 @@ body {
 }
 
 </style>
+
+
+
 </head>
 <body >
 
-  
+
 	
 	
 <div class="sidenav">
@@ -109,7 +112,7 @@ body {
 				<span style="color:red">${addClusterErrMsg}</span>
 	<div id="id01"></div>
 	
-	
+> 
 		
 		 
 		<!--   <div class="form-group">
