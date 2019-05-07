@@ -45,6 +45,18 @@ html, body, #container {
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
  <link rel="stylesheet" href="../stylesheets/card.css">
+ 
+ <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 800px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="resources/maps/data.js"></script>
+  
+  
  <style>
 
   
@@ -204,13 +216,103 @@ html, body, #container {
 			<!-- /.container -->
 		</nav>
 
-<div style = "position:relative; left:100px; top:40px;">
-<div class="map-responsive">
+ <div style = "position:relative; left:100px; top:40px;"> 
+
+<div id="map"></div>
+    <script>
+      // Initialize and add the map
+      function initMap() {
+          // The map, centered at mean of all locations in the bay area
+          var length = data.locations['location'].length;
+          var total_latitude = 0;
+          var total_longitude = 0
+          data.locations['location'].forEach(function (location) {
+            total_latitude += location.latitude ;
+            total_longitude += location.longitude;
+
+          });
+          latitude = total_latitude / length;
+          longitude = total_longitude /length;
+          var location = {
+              lat: latitude,
+              lng: longitude
+          };
+          var map = new google.maps.Map(
+              document.getElementById('map'), {
+                  zoom: 8,
+                  center: location
+              });
+
+
+          data.locations['location'].forEach(function(obj) {
+              // console.log(obj.id);
+              var mkr = {
+                  lat: obj.latitude,
+                  lng: obj.longitude
+              };
+              var marker = new google.maps.Marker({
+                  position: mkr,
+                  map: map,
+                  title: obj.type
+              });
+              if (obj.type == "ActiveSensor") {
+                  marker.setIcon(markerIcon("#009900"));
+              } else if (obj.type == "DeactiveSensor") {
+                  marker.setIcon(markerIcon("#ff0000"));
+              } else if (obj.type == "EmergencyStation") {
+                  marker.setIcon(markerIcon("#FFF"));
+              } else if (obj.type == "Node") {
+                  marker.setIcon(markerIcon("#0000cc"));
+              }
+
+              if (obj.type == "ActiveSensor") {
+                var center = {
+                  lat: obj.latitude,
+                  lng: obj.longitude
+              };
+              // Add the circle for this retail location to the map.
+              var retailCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: center,
+                radius: Math.sqrt(obj.$revenue)
+              });
+            }
+
+          })
+
+
+      }
+
+      function markerIcon(color) {
+          return {
+              path: 'M11.462 1c-1.363 0-2.462 1.127-2.462 2.526v42.946c0 1.262 1.231 2.527 2.462 2.527 1.23 0 2.461-1.266 2.461-2.527v-25.894c.841-.367 1.659-.632 2.462-.632 4.923 0 12.185 6.317 17.231 6.317 2.151 0 5.231-.871 7.384-2.527v-17.684c-2.442 1.879-4.916 3.79-7.384 3.79-4.923 0-12.291-6.316-17.231-6.316-.83 0-1.64.152-2.462.316v-.316c0-1.399-1.099-2.526-2.461-2.526z',
+              fillColor: color,
+              fillOpacity: 1,
+              strokeColor: '#000',
+              strokeWeight: 2,
+              scale: 1,
+          };
+      }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqLVPiBpMi6JRtKC7r5gFm97gAYmM-A8s&callback=initMap">
+    </script>
+<!-- <div class="map-responsive">
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.2817406297!2d-118.69259902630395!3d34.020159765904246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos+Angeles%2C+CA!5e0!3m2!1sen!2sus!4v1556234792835!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
-</div> 
- </div>
+<!-- </div> --> 
+  </div>
  </div>
 	<!-- jQuery -->
 	<script src="resources/js/jquery-1.11.3.min.js"></script>
