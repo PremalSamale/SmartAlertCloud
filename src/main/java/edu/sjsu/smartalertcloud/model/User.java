@@ -20,6 +20,8 @@ public class User {
     private String firstName;
     @Column(name = "lastName")
     private String lastName;
+    @Column(name = "role")
+    private String registrationRole;
     @Column(name = "password")
     private String password;
 	private boolean enabled;
@@ -31,10 +33,11 @@ public class User {
     public User() {
     }
 
-    public User(String emailAddress, String firstName, String lastName, String password, boolean enabled) {
+    public User(String emailAddress, String firstName, String lastName,String role, String password, boolean enabled) {
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.registrationRole=role;
         this.password = password;
         this.enabled = enabled;
     }
@@ -90,4 +93,13 @@ public class User {
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRole = userRole;
 	}
+
+	public String getRegistrationRole() {
+		return registrationRole;
+	}
+
+	public void setRegistrationRole(String registrationRole) {
+		this.registrationRole = registrationRole;
+	}
+	
 }

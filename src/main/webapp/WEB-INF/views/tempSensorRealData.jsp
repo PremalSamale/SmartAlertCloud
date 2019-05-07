@@ -116,12 +116,12 @@ input[type='text'], select {
 	padding: 8px 3px;
 }
 
- #booksTable tr>*:nth-child(3) {
+ #booksTable tr>*:nth-child(2) {
 	display: none;
 }
-#booksTable tr>*:nth-child(8) {
+#booksTable tr>*:nth-child(7) {
 	display: none;
-}
+}  
 </style>
 </head>
 <body>

@@ -119,13 +119,13 @@ input[type='text'], select {
 	padding: 8px 3px;
 }
 
-#booksTable tr>*:nth-child(7) {
+ #booksTable tr>*:nth-child(1) {
 	display: none;
 }
-#booksTable tr>*:nth-child(17) {
+#booksTable tr>*:nth-child(2) {
 	display: none;
 }
-#booksTable tr>*:nth-child(16) {
+#booksTable tr>*:nth-child(3) {
 	display: none;
 }
 
@@ -135,18 +135,21 @@ input[type='text'], select {
 /* #booksTable tr>*:nth-child(11) {
 	display: none;
 } */
-#booksTable tr>*:nth-child(12) {
+#booksTable tr>*:nth-child(4) {
 	display: none;
 }
-#booksTable tr>*:nth-child(13) {
+#booksTable tr>*:nth-child(5) {
 	display: none;
 }
-#booksTable tr>*:nth-child(14) {
+#booksTable tr>*:nth-child(6) {
 	display: none;
 }
-#booksTable tr>*:nth-child(15) {
+#booksTable tr>*:nth-child(7) {
 	display: none;
-}
+} 
+#booksTable tr>*:nth-child(9) {
+	display: none;
+} 
 
 </style>
 </head>

@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Material design sign up form</title>
+  <title>Smart Alert Cloud sign up form</title>
   
 </head>
 <style>
@@ -183,6 +183,14 @@ button.social-signin.google {
 	    <input type="text" name="username" placeholder="E-mail" />
 	    <input type="text" name="firstName" placeholder="First Name" />
 	    <input type="text" name="lastName" placeholder="Last Name" />
+	      <select type="text" name = "role"  required autofocus>
+	        <option value = "Select Role" selected>Select Role</option>
+	        <option value = "admin">admin</option>
+	        <option value = "guest">guest</option>
+            <option value = "city_officer">city_officer</option>
+            <option value = "infrastructure_officer">infrastructure_officer</option>
+            <option value = "IOT_Officer">IOT_Officer</option>
+         </select>
 	    <input type="password" name="password" placeholder="Password" />
 	    <input type="password" name="password2" placeholder="Retype password" />
 	    <input type="submit" value="Sign me up" />

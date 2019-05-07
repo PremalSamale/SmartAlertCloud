@@ -26,8 +26,7 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
 	@Autowired
 	@Qualifier("userDetailsService")
 	UserDetailsService userDetailsService;
-	/*@Autowired
-    MyUserDetailsService myUserDetailsService;*/
+
 	
 		
     @Override
@@ -38,13 +37,9 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
     @Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//		auth.userDetailsService(userDetailsService);
+
 	}
-/*    
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
-	}*/
+
 
 	
     @Override
@@ -53,6 +48,27 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
     	.antMatchers("/").permitAll()
     	.antMatchers("/signup").permitAll()
     	.antMatchers("/registrationConfirm").permitAll()
+    	.antMatchers("/home").hasAnyRole("ADMIN", "GUEST","USER","INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/dashboard").hasAnyRole("ADMIN", "GUEST","USER","INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/sensorDataReport").hasAnyRole("ADMIN", "GUEST","USER","INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/clusterLocationView").hasAnyRole("ADMIN", "GUEST","USER","INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/sensorMapView").hasAnyRole("ADMIN", "GUEST","USER","INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/manageSensor").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/addSensor").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/editSensor").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	
+    	.antMatchers("/manageCluster").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	
+    	.antMatchers("/addCluster").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/editCluster").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	
+    	.antMatchers("/manageNode").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/addNode").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	.antMatchers("/editNode").hasAnyRole("ADMIN", "INFRASTRUCTURE_OFFICER")
+    	
+    	.antMatchers("/getRealDataSensor").hasAnyRole("ADMIN", "USER")
+    	.antMatchers("/getRealDataTempSensor").hasAnyRole("ADMIN", "USER")
+    	.antMatchers("/getLast24hoursData").hasAnyRole("ADMIN", "USER")
     /*	.antMatchers("/home/**").hasAnyRole("USER", "CUSTOMER")
     	.antMatchers("/home**").hasAnyRole("USER", "CUSTOMER")
     	.antMatchers("/home**").hasAnyRole("USER", "CUSTOMER")
@@ -66,25 +82,8 @@ public class SmartAlertCloudSecurityConfiguration extends WebSecurityConfigurerA
 
         http.csrf().disable();
         
-        
-     /*   http.authorizeRequests().antMatchers("/admin/**")
-		.access("hasRole('ROLE_ADMIN')").and().formLogin()
-		.loginPage("/login").failureUrl("/login?error")
-			.usernameParameter("username")
-			.passwordParameter("password")
-			.and().logout().logoutSuccessUrl("/login?logout")
-			.and().csrf()
-			.and().exceptionHandling().accessDeniedPage("/403");*/
+
     }
-
-/*   @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-      authenticationMgr.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance()).withUser("employee").password("employee")
-            .authorities("ROLE_USER").and().withUser("javainuse").password("javainuse")
-            .authorities("ROLE_USER", "ROLE_ADMIN","ROLE_CUSTOMER");
-     
-    }*/
-
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		PasswordEncoder encoder = new BCryptPasswordEncoder();

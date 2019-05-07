@@ -61,12 +61,13 @@ public class UserController {
 			@RequestParam(value="username", required=false) String username,
 			@RequestParam(value="firstName", required=false) String firstName,
 			@RequestParam(value="lastName", required=false) String lastName,
+			@RequestParam(value="role", required=true) String registrationRole,
 			@RequestParam(value="password", required=false) String password,
 			@RequestParam(value="password2", required=false) String password2,
 			HttpSession session,
 			WebRequest request
 		) {
-		userService.saveUserAndRole(username,firstName,lastName, password, false);
+		userService.saveUserAndRole(username,firstName,lastName,registrationRole, password, false);
 		User user = userService.getUser(username);
 		String appUrl = request.getContextPath();
 		eventPublisher.publishEvent(new OnRegistrationCompleteEvent
@@ -116,29 +117,47 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView  user(HttpServletRequest request) {
+		System.out.println("***********for /home inside user controller******** ");
 		String emailAddress = request.getUserPrincipal().getName();
 		User user = userService.getUser(emailAddress);
 		Set<UserRole> userRoles = user.getUserRole();
 		boolean isAdmin = false;
+		boolean isUser = false;
+	
+		boolean isInfrastructure = false;
 		for(UserRole userRole: userRoles) {
 			if (userRole.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
 				isAdmin = true;
 			}
+			if (userRole.getRole().equalsIgnoreCase("ROLE_USER")) {
+				isUser = true;
+			}
+
+			if (userRole.getRole().equalsIgnoreCase("ROLE_INFRASTRUCTURE_OFFICER")) {
+				isInfrastructure = true;
+			}
 		}
-		if (!isAdmin) {
-			return new ModelAndView("redirect:/");
-		} else {
-			return new ModelAndView("redirect:/");
+		if (isAdmin) {
+			System.out.println("***********for not adminn inside user controller******** ");
+			return new ModelAndView("home");
+		} else if (isUser){
+			System.out.println("***********for admin inside user controller******** ");
+			return new ModelAndView("homeUser");
+		}else if(isInfrastructure) {
+			System.out.println("***********for admin inside user controller******** ");
+			return new ModelAndView("homeInfrastructure");
+		}else {
+			return new ModelAndView("home");
 		}
 	}
 
-	@RequestMapping(value="/home", method=RequestMethod.GET)
+/*	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public ModelAndView doCustomer() {
 		return new ModelAndView("home");
 	}
-
+*/
 	
 	
     @RequestMapping(value="/manageCluster",  method=RequestMethod.GET)

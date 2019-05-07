@@ -28,20 +28,25 @@ public class UserServiceImpl implements UserService {
     private VerificationTokenRepository tokenRepository;
 
 	@Transactional
-	public void saveUserAndRole(String emailAddress, String firstName, String lastName, String password, boolean enabled) {
+	public void saveUserAndRole(String emailAddress, String firstName, String lastName,String role, String password, boolean enabled) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(password);
-		User user = new User(emailAddress, firstName, lastName, hashedPassword, enabled);
+		User user = new User(emailAddress, firstName, lastName, role,hashedPassword, enabled);
 
 		UserRole userRole = new UserRole();
-		if (emailAddress.endsWith("sjsu.edu")) {
+		if (role.equalsIgnoreCase("admin")) {
 			userRole.setRole("ROLE_ADMIN");
 			userRole.setUser(user);
-		} else {
+		} else if  (role.equalsIgnoreCase("guest")){
+			userRole.setRole("ROLE_GUEST");
+			userRole.setUser(user);
+		}else if  (role.equalsIgnoreCase("city_officer")||role.equalsIgnoreCase("IOT_Officer")){
 			userRole.setRole("ROLE_USER");
 			userRole.setUser(user);
+		}else if  (role.equalsIgnoreCase("infrastructure_officer")){
+			userRole.setRole("ROLE_INFRASTRUCTURE_OFFICER");
+			userRole.setUser(user);
 		}
-
 		userDao.saveUserAndRole(userRole, user);
 	}
 
@@ -53,12 +58,13 @@ public class UserServiceImpl implements UserService {
 
 
 	@Transactional
-	public void saveUser(String emailAddress, String firstName, String lastName, String password) {
+	public void saveUser(String emailAddress, String firstName, String lastName, String role,  String password) {
 		// TODO Auto-generated method stub
 		User user= new User();
 		user.setEmailAddress(emailAddress);
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
+		user.setRegistrationRole(role);
 		user.setPassword(password);
 		userDao.saveUser(user);
 	}

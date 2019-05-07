@@ -110,12 +110,15 @@
             width: auto;
             padding: 8px 3px;
         }
-          #booksTable tr > *:nth-child(8) {
+           #booksTable tr > *:nth-child(2) {
                 display: none;
             }
-              #booksTable tr > *:nth-child(2) {
+              #booksTable tr > *:nth-child(3) {
                 display: none;
-            } 
+            }  
+                 #booksTable tr > *:nth-child(8) {
+                display: none;
+            }  
     </style>
 </head>
 <body>

@@ -102,7 +102,7 @@ html, body, #container {
 
      <a href="/dashboard">Dashboard</a>
    <a href="/sensorDataReport">Temperature Sensor Analysis</a>
-  <a href="/sensorData">Humidity & Wind Sensor Analysis</a> 
+  <a href="/sensorData">Humidity & Smoke Sensor Analysis</a> 
   <a href="/clusterLocationView">View on Map</a>
    <a href="/sensorMapView"> Network view on Map</a> 
 </div>
