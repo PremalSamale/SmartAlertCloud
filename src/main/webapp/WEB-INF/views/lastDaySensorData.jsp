@@ -122,10 +122,32 @@ input[type='text'], select {
 #booksTable tr>*:nth-child(7) {
 	display: none;
 }
-
-#booksTable tr>*:nth-child(2) {
+#booksTable tr>*:nth-child(17) {
 	display: none;
 }
+#booksTable tr>*:nth-child(16) {
+	display: none;
+}
+
+/* #booksTable tr>*:nth-child(10) {
+	display: none;
+} */
+/* #booksTable tr>*:nth-child(11) {
+	display: none;
+} */
+#booksTable tr>*:nth-child(12) {
+	display: none;
+}
+#booksTable tr>*:nth-child(13) {
+	display: none;
+}
+#booksTable tr>*:nth-child(14) {
+	display: none;
+}
+#booksTable tr>*:nth-child(15) {
+	display: none;
+}
+
 </style>
 </head>
 <body>
