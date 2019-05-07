@@ -203,22 +203,60 @@
          
 
 
- 
+ <div class="container">
+			<h2 class="mt30 col-md-offset-1">Add Sensor</h2> 
+			<form name="getLatitudeLongitudeSensor"
+				action="getLatitudeLongitudeSensor" class="report-form"
+				style="width: 100% !important" method="post">
+				<div class="mt30 col-md-offset-1"
+					style="width: 800px; margin: 0 auto;">
+					<div class="form-group ${error != null ? 'has-error' : ''}">
+						<span style="color: green">${getLatitudeLongitudeSensorMsg}</span>
+						<span style="color: red">${getLatitudeLongitudeSensorErrMsg}</span>
+						<div id="id01"></div>
+					</div>
+				</div>
+				<div class="mt30 col-md-offset-1"
+					style="width: 800px; margin: 0 auto;">
+					<div class="form-group ${error != null ? 'has-error' : ''}">
+						<span style="color: green">${addSensorMsg}</span> <span
+							style="color: red">${addSensorErrMsg}</span>
+						<div id="id01"></div>
+					</div>
+				</div>
+				<div class="mt30 col-md-offset-1 form-group">
+					<label class="m10s0">Sensor Address :</label> <input
+						class="m5s0 box-format" id="address" type="text"
+						value="${address}" name="address" required autofocus>
+					<button class="btn btn-primary">Get Latitude, Longitude
+						and City</button>
+				</div>
+			</form>
 	<form name="addSensor" action="addSensor" class="report-form" style="width:100% !important"  method="post" > 
-	<div style="width:800px; margin:0 auto;">	
-	<h2 class="mt30 col-md-offset-1">Add Sensor</h2>
-	<div class="form-group ${error != null ? 'has-error' : ''}">
-				<span style="color:green">${addSensorMsg}</span>
-				<span style="color:red">${addSensorErrMsg}</span>
-	<div id="id01"></div>
+	<!-- <div style="width:800px; margin:0 auto;"> -->	
+	<div class="mt30 col-md-offset-1 form-group">
 
-        
+  
+       <div style="visibility: hidden">
+			<label class="m10s0">Address :</label> <input
+			class="m5s0 box-format" id="address" type="text"
+			value="${address}" name="address">
+	   </div>
 
-		<label class="m10s0">Select Zip: </label> 
-		<div  class="form-group">
-			<select name="zip" id="zip" required>
-			<option value="NA" disabled selected hidden>Select Zip</option>
-			</select>
+		<div class="form-group">
+			<label class="m10s0">Zip: </label> <input
+			class="m5s0 box-format" id="zip" type="text" value="${zip}"
+			name="zip" required autofocus>
+		</div>
+		<div class="form-group">
+			<label class="m10s0">Latitude :</label> <input
+			class="m5s0 box-format" id="latitude" type="text"
+			value="${latitude}" name="latitude" required autofocus>
+		</div>
+		<div class="form-group">
+			<label class="m10s0">longitude :</label> <input
+			class="m5s0 box-format" id="longitude" type="text"
+			value="${longitude}" name="longitude" required autofocus>
 		</div>
 		
 		 <div class="form-group">
@@ -241,17 +279,7 @@
         </div>
         <br/>
 
-        <div class="form-group">
-			<label class="m10s0">Latitude :</label> 
-			<input class="m5s0 box-format"	id="lat" type="text" name = "lat"> <br />
-			</div> 
-		 <br/>
-		 <div class="form-group">
-			<label class="m10s0">Longitude :</label> 
-			<input class="m5s0 box-format"	id="long" type="text" name = "long" > <br />
-        </div> 
-        <br/>
-        
+         <label class="m10s0">Select Sensor Status: </label> 
         <div  class="form-group">
 			<select name="status" id="status" required>
 			<option value="NA" disabled selected hidden>Select Status</option>
@@ -268,6 +296,8 @@
 			</div>
 		</div>
 		<button onclick="validateForm(this.form)"  class="btn btn-primary">Submit</button>
+	</div>
+	</div>
 	</div>
 	</div>	
 	</form>

@@ -19,12 +19,13 @@ public interface AdminService {
 	public Cluster getCluster(int clusterId);
 
 	public void addNode(Node node);
-	public List<Node> getNode(String[] city);
+	public List<Node> getNode(String city);
 	public Node getNode(int nodeId);
 	public void deleteNode(Node node);
 
 	public void addSensor(Sensor sensor);
-	public List<Sensor> getSensor(String[] zip);
+	public List<Sensor> getSensor(String zip);
+	public List<Sensor> getSensorDetails(String[] type);
 	public Sensor getSensor(int sensorId);
 	public void deleteSensor(Sensor sensor);
 	public List<Sensor> getSensor();

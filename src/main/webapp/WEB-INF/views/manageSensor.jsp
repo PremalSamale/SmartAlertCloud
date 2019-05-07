@@ -178,18 +178,16 @@
                   <div class="form-group ${error != null ? 'has-error' : ''}">
                      <span style="color:green">${searchSensorMsg}</span>
                      <span style="color:red">${searchSensorErrMsg}</span>
-                     <table class="col-lg-12 col-md-12">
-                        <tr>
-                           <td>
-                              <select name="zip" type="text" class="form-control" size="3" multiple autofocus="true" id="zip">
-                               
-                              </select>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td colspan='7'><button class="btn btn-lg btn-primary btn-block" type="submit">Search Sensor</button></td>
-                        </tr>
-                     </table>
+                   <div class="col-md-6">
+			    			<select name="type" type="text" class="form-control" size="3" multiple autofocus="true">
+								<option value="" disabled selected>Sensor Type</option>
+								<option value="THERMAL">THERMAL</option>
+								<option value="HUMIDITY">HUMIDITY</option>
+								<option value="SMOKE">SMOKE</option>
+								
+							</select>
+                		<button class="btn btn-lg btn-primary btn-block" type="submit">Search Sensor</button><br>
+					</div>
                   </div>
                </form>
             </div>
@@ -199,23 +197,25 @@
             <div class="col-lg-12 col-md-12">
                <table class="table table-bordered table-striped table-hover col-md-1" border="1">
                   <th>Sensor ID</th>
+                   <th>Sensor Type </th>
+				  <th>Status</th>
                   <th>Zip </th>
                   <th> Name </th>
-									<th>Description </th>
-									<th>Latitude </th>
-									<th>Longitude </th>
-									<th>Sensor Type </th>
-									<th>Status</th>
+                   <th>Address </th>
+				  <th>Latitude </th>
+				  <th>Longitude </th>
+				  <th>Description </th>
                   <c:forEach items="${SensorList}" var="sensor">
                      <tr>
                         <td>${sensor.getSensorId()}</td>
+                        <td>${sensor.type}</td>
+                        <td>${sensor.status}</td>
                         <td>${sensor.zip}</td>
                         <td>${sensor.name}</td>
-												<td>${sensor.description}</td>
-												<td>${sensor.latitude}</td>
-												<td>${sensor.longitude}</td>
-												<td>${sensor.type}</td>
-                        <td>${sensor.status}</td>
+                         <td>${sensor.address}</td>
+						<td>${sensor.latitude}</td>
+						<td>${sensor.longitude}</td>
+						<td>${sensor.description}</td>
                      </tr>
                   </c:forEach>
                </table>

@@ -166,77 +166,86 @@
         </div>
         <!-- /.container -->
     </nav>
-         
-
-
-
-
-
-
-
-
-
-
+      	<div class="container">
+			<h2 class="mt30 col-md-offset-1">Add Node</h2>   
+			<form name="getLatitudeLongitudeNode"
+				action="getLatitudeLongitudeNode" class="report-form"
+				style="width: 100% !important" method="post">
+				<div class="mt30 col-md-offset-1"
+					style="width: 800px; margin: 0 auto;">
+					<div class="form-group ${error != null ? 'has-error' : ''}">
+						<span style="color: green">${getLatitudeLongitudeNodeMsg}</span>
+						<span style="color: red">${getLatitudeLongitudeNodeErrMsg}</span>
+						<div id="id01"></div>
+					</div>
+				</div>
+				<div class="mt30 col-md-offset-1"
+					style="width: 800px; margin: 0 auto;">
+					<div class="form-group ${error != null ? 'has-error' : ''}">
+						<span style="color: green">${addNodeMsg}</span> <span
+							style="color: red">${addNodeErrMsg}</span>
+						<div id="id01"></div>
+					</div>
+				</div>
+				<div class="mt30 col-md-offset-1 form-group">
+					<label class="m10s0">Node Address :</label> <input
+						class="m5s0 box-format" id="address" type="text"
+						value="${address}" name="address" required autofocus>
+					<button class="btn btn-primary">Get Latitude, Longitude
+						and City</button>
+				</div>
+			</form>
  
 	<form name="addNode" action="addNode" class="report-form" style="width:100% !important"  method="post" > 
-	<div style="width:800px; margin:0 auto;">	
-	<h2 class="mt30 col-md-offset-1">Add Node</h2>
-	<div class="form-group ${error != null ? 'has-error' : ''}">
+<!-- 	<div style="width:800px; margin:0 auto;"> -->	
+	
+	<div class="mt30 col-md-offset-1 form-group">
+<%-- 	<div class="form-group ${error != null ? 'has-error' : ''}">
 				<span style="color:green">${addNodeMsg}</span>
 				<span style="color:red">${addNodeErrMsg}</span>
-	<div id="id01"></div>
+	<div id="id01"></div> --%>
 	
-		
-	<!-- 	 <div class="form-group">
-			<label class="m10s0">Last Date Of Maintenance :</label> 
-			<input class="m5s0 box-format"	id="lastDateOfMaintainnance" type="datetime" name = "lastDateOfMaintainnance"> <br />
-		</div> 
-		
-		
-		 <div class="form-group">
-			<label class="m10s0">Date Of Deployment :</label> 
-			<input class="m5s0 box-format"	id="dateOfDeployment" type="datetime" name = "dateOfDeployment"> <br />
-        </div>  -->
-        
+      	<div style="visibility: hidden">
+						<label class="m10s0">Address :</label> <input
+							class="m5s0 box-format" id="address" type="text"
+							value="${address}" name="address">
+					</div>
+					<div class="form-group">
+						<label class="m10s0">Name :</label> <input class="m5s0 box-format"
+							id="name" type="text" name="name" required autofocus>
+					</div>
+					
+					<div class="form-group">
+						<label class="m10s0">City: </label> <input
+							class="m5s0 box-format" id="county" type="text" value="${city}"
+							name="city" required autofocus>
+					</div>
+					<div class="form-group">
+						<label class="m10s0">Latitude :</label> <input
+							class="m5s0 box-format" id="latitude" type="text"
+							value="${latitude}" name="latitude" required autofocus>
+					</div>
+					<div class="form-group">
+						<label class="m10s0">longitude :</label> <input
+							class="m5s0 box-format" id="longitude" type="text"
+							value="${longitude}" name="longitude" required autofocus>
+					</div>
 
-		<label class="m10s0">Select City: </label> 
-		<div  class="form-group">
-			<select name="city" required>
-			<option value="NA" disabled selected hidden>Select City</option>
-			  <option value="OAKLAND">OAKLAND </option>
-			  <option value="FREEMONT">FREEMONT </option>
-			  <option value="LONG_BEACH">LONG_BEACH</option>
-			  <option value="MALIBU">MALIBU</option>
-              <option value="CAMARILLO">CAMARILLO</option>
-              <option value="PIRU">PIRU</option>
-              <option value="RIDGEMARK">RIDGEMARK</option>
-              <option value="HOLLISTER">HOLLISTER</option>
-              <option value="DAVIS">DAVIS</option>
-              <option value="MADISON">MADISON</option>
-			</select>
-		</div>
-		
-		 <div class="form-group">
-			<label class="m10s0">Name :</label> 
-			<input class="m5s0 box-format"	id="name" type="text" name = "name"> <br />
-			</div> 
-		 <br/>
-		 <div class="form-group">
-			<label class="m10s0">Description :</label> 
-			<input class="m5s0 box-format"	id="description" type="text" name = "description"> <br />
-        </div> 
-        <br/>
-        
-        <div  class="form-group">
-			<select name="status" required>
-			<option value="NA" disabled selected hidden>Select Status</option>
-              <option value="ON">ON </option>
-              <option value="OFF">OFF </option>
-              <option value="MAINTENANCE">MAINTENANCE </option>
-			 
-			</select>
-		</div>
-		
+					<div class="form-group">
+						<label class="m10s0">Description :</label> 
+						<input class="m5s0 box-format"	id="description" type="text" name = "description"> <br />
+        			</div> 
+        			<br/>
+					<div  class="form-group">
+			        <label class="m10s0">Node Status :</label> 
+						<select name="status" required>
+						<option value="NA" disabled selected hidden>Select Status</option>
+			            <option value="ON">ON </option>
+			            <option value="OFF">OFF </option>
+			            <option value="MAINTENANCE">MAINTENANCE </option>
+					</select>
+					</div>
+					
 		<div class="m10s0">
 			<h4></h4>
 			<label>Terms and Conditions:<br/>The above entered information is correct</label> <br/>
@@ -245,9 +254,11 @@
 			</div>
 		</div>
 		<button onclick="validateForm(this.form)"  class="btn btn-primary">Submit</button>
+		</div>
 	</div>
 	</div>	
 	</form>
+</div>
 </div>
       <footer class="footer" >
         

@@ -166,28 +166,11 @@
                   <div class="form-group ${error != null ? 'has-error' : ''}">
                      <span style="color:green">${searchNodeMsg}</span>
                      <span style="color:red">${searchNodeErrMsg}</span>
-                     <table class="col-lg-12 col-md-12">
-                        <tr>
-                           <td>
-                              <select name="city" type="text" class="form-control" size="3" multiple autofocus="true">
-                                 <option value="OAKLAND"  disabled>City </option>
-                                 <option value="OAKLAND" >OAKLAND </option>
-                                 <option value="FREEMONT">FREEMONT </option>
-                                 <option value="LONG_BEACH">LONG_BEACH</option>
-                                 <option value="MALIBU">MALIBU</option>
-                                 <option value="CAMARILLO">CAMARILLO</option>
-                                 <option value="PIRU">PIRU</option>
-                                 <option value="RIDGEMARK">RIDGEMARK</option>
-                                 <option value="HOLLISTER">HOLLISTER</option>
-                                 <option value="DAVIS">DAVIS</option>
-                                 <option value="MADISON">MADISON</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td colspan='7'><button class="btn btn-lg btn-primary btn-block" type="submit">Search Node</button></td>
-                        </tr>
-                     </table>
+                 	<div class="col-md-6">
+			    		<label class="m10s0">City :</label>
+                		<input class="m5s0 box-format" id="city" type="text" value="${city}" name = "city"><br>
+                		<button class="btn btn-lg btn-primary btn-block" type="submit">Search Node</button><br>
+					</div>
                   </div>
                </form>
             </div>
@@ -199,6 +182,9 @@
                   <th>Node ID</th>
                   <th>City </th>
                   <th> Name </th>
+                 
+                  <th> Latitude </th>
+                  <th> Longitude </th>
                   <th>Description </th>
                   <th>Status </th>
                   <c:forEach items="${NodeList}" var="node">
@@ -206,6 +192,9 @@
                         <td>${node.getNodeId()}</td>
                         <td>${node.city}</td>
                         <td>${node.name}</td>
+                      
+                        <td>${node.latitude}</td>
+					    <td>${node.longitude}</td>
                         <td>${node.description}</td>
                         <td>${node.status}</td>
                      </tr>

@@ -226,7 +226,7 @@ public class AdminDaoImpl implements AdminDao{
 		ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 		SessionFactory sf = con.buildSessionFactory(reg);
 		Session session = sf.openSession();
-		Sensor sensor = (Sensor) session.get(Sensor.class, Long.valueOf(sensorId));
+		Sensor sensor = (Sensor) session.get(Sensor.class, sensorId);
 		System.out.println("***********inside getNode nodeId"+sensor.getSensorId());
 		session.close();
 		return sensor;

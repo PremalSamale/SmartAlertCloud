@@ -209,26 +209,19 @@ input[type=grey_input] {
 		</nav>
 		<div class="container">
 			<div class="col-lg-12 col-md-12">
-				<form action="searchNodeForUpdate" method="get">
+				<form action="getSensorByFilter" method="get">
 					<h2 class="form-heading">Search Filter</h2>
 					<div class="form-group ${error != null ? 'has-error' : ''}">
-						<span style="color: green">${searchClusterMsg}</span> <span
-							style="color: red">${searchClusterErrMsg}</span>
-						<table class="col-lg-12 col-md-12">
+						<span style="color: green">${searchSensorMsg}</span> <span
+							style="color: red">${searchSensorErrMsg}</span>
+						<!-- <table class="col-lg-12 col-md-12">
 							<tr>
-								<td><select name="city" type="text" class="form-control"
+								<td><select name="type" type="text" class="form-control"
 									size="3" multiple autofocus="true">
-										<option value="OAKLAND" disabled>City</option>
-										<option value="OAKLAND">OAKLAND</option>
-										<option value="FREEMONT">FREEMONT</option>
-										<option value="LONG_BEACH">LONG_BEACH</option>
-										<option value="MALIBU">MALIBU</option>
-										<option value="CAMARILLO">CAMARILLO</option>
-										<option value="PIRU">PIRU</option>
-										<option value="RIDGEMARK">RIDGEMARK</option>
-										<option value="HOLLISTER">HOLLISTER</option>
-										<option value="DAVIS">DAVIS</option>
-										<option value="MADISON">MADISON</option>
+										<option value="" disabled selected>Sensor Type</option>
+										<option value="THERMAL">THERMAL</option>
+										<option value="HUMIDITY">HUMIDITY</option>
+										<option value="SMOKE">SMOKE</option>
 								</select></td>
 							</tr>
 							<tr>
@@ -237,10 +230,20 @@ input[type=grey_input] {
 							<tr>
 								<td colspan='7'>
 									<button class="btn btn-lg btn-primary btn-block" type="submit">Search
-										Node</button>
+										Sensor</button>
 								</td>
 							</tr>
-						</table>
+						</table> -->
+						   <div class="col-md-6">
+			    			<select name="type" type="text" class="form-control" size="3" multiple autofocus="true">
+								<option value="" disabled selected>Sensor Type</option>
+								<option value="THERMAL">THERMAL</option>
+								<option value="HUMIDITY">HUMIDITY</option>
+								<option value="SMOKE">SMOKE</option>
+								
+							</select>
+                		<button class="btn btn-lg btn-primary btn-block" type="submit">Search Sensor</button><br>
+					</div>
 					</div>
 				</form>
 			</div>
@@ -251,34 +254,46 @@ input[type=grey_input] {
 				<table
 					class="table table-bordered table-striped table-hover col-md-1"
 					border="1" width="100%" border="0" cellspacing="0" cellpadding="0">
-					<th>Node ID</th>
-					<th>City</th>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Status</th>
-					<th>Edit Node</th>
-					<th>Delete Node</th>
-					<c:forEach items="${NodeList}" var="node">
+					<th>Sensor ID</th>
+                   <th>Sensor Type </th>
+				  <th>Status</th>
+                  <th>Zip </th>
+                   <th>Address </th>
+				  <th>Latitude </th>
+				  <th>Longitude </th>
+				  
+					<th>Update Sensor</th>
+					<th>Delete Sensor</th>
+					<c:forEach items="${SensorList}" var="sensor">
 						<tr>
-							<form action="editNode" method="post">
-								<td><input type="grey_input" name="nodeID" type="text"
-									readonly value="${node.getNodeId()}" /></td>
-								<td><input type="grey_input" name="city" readonly
-									type="text" value="${node.city}" /></td>
+							<form action="editSensor" method="post">
+								<td><input type="grey_input" name="sensorID" type="text"
+									readonly value="${sensor.getSensorId()}" /></td>
+								<td><input type="grey_input" name="type" readonly
+									type="text" value="${sensor.type}" /></td>
 								<!-- <td><select name="city" required="required" type="text" class="form-control" autofocus="true"><option value="OAKLAND" disabled>City </option><option value="OAKLAND" >OAKLAND </option><option value="FREEMONT">FREEMONT </option><option value="LONG_BEACH">LONG_BEACH</option><option value="MALIBU">MALIBU</option><option value="CAMARILLO">CAMARILLO</option><option value="PIRU">PIRU</option><option value="RIDGEMARK">RIDGEMARK</option><option value="HOLLISTER">HOLLISTER</option><option value="DAVIS">DAVIS</option><option value="MADISON">MADISON</option></select></td> -->
-								<td><input name="name" type="text" autofocus="true"
-									value="${node.name}" /></td>
-								<td><input name="description" type="text" autofocus="true"
-									value="${node.description}" /></td>
 								<td><input name="status" type="text" autofocus="true"
-									value="${node.status}" /></td>
-								<td><input type="submit" name="action" value="Edit" /></td>
+									value="${sensor.status}" /></td>
+									<td><input name="zip" type="text" autofocus="true"
+									value="${sensor.zip}" /></td>
+								<%-- <td><input name="name" type="text" autofocus="true"
+									value="${sensor.name}" /></td> --%>
+									<td><input name="address" type="text" autofocus="true"
+									value="${sensor.address}" /></td>
+									<td><input name="latitude" type="text" autofocus="true"
+									value="${sensor.latitude}" /></td>
+									<td><input name="longitude" type="text" autofocus="true"
+									value="${sensor.longitude}" /></td>
+								<%-- <td><input name="description" type="text" autofocus="true"
+									value="${sensor.description}" /></td> --%>
+								
+								<td><input type="submit" name="action" value="Update" /></td>
 								<td><input type="submit" name="action" value="Delete" /></td>
 							</form>
 						</tr>
 					</c:forEach>
 				</table>
-				<span style="color: green">${editNodeResponse}</span>
+				<span style="color: green">${editSensorResponse}</span>
 			</div>
 		</div>
 		<footer class="footer">

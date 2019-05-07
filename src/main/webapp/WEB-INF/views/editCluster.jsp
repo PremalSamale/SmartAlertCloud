@@ -198,6 +198,7 @@
 			<c:forEach items="${ClusterList}" var="cluster"> 
 				<tr>
 					<form action="chooseClusterToEditOrDelete" method="post">
+	
 						<td><input name="clusterID" type="text" autofocus="true" readonly background-color="#D3D3D3" value="${cluster.clusterID}"/></td>
 						<td><input name="name" type="text" autofocus="true" value="${cluster.name}"/></td>
 						<td><input name="address" type="text" autofocus="true" value="${cluster.address}"/></td>
@@ -205,7 +206,7 @@
 						<td><input name="latitude" type="text" autofocus="true" value="${cluster.latitude}"/></td>
 				    	<td><input name="longitude" type="text" autofocus="true" value="${cluster.longitude}"/></td>					
 						<td>
-							<input type="submit" name="action" value="Edit"/>
+							<input type="submit" name="action" value="Update"/>
 						</td>
 						<td>
 							<input type="submit" name="action" value="Delete"/>

@@ -167,15 +167,6 @@
         <!-- /.container -->
     </nav>
 
-
-
-
-
-
-
-
-
-
  <div class="container">
 	<div class="col-lg-12 col-md-12">
 		<form action="searchClusterForAdmin" method="post">
@@ -198,6 +189,7 @@
 		<table class="table table-bordered table-striped table-hover col-md-1" border="1">
 			<th>Cluster ID</th>
 			<th>Name</th>
+			<th>Address</th>
 			<th>County</th>
 			<th>Latitude</th>
 			<th>Longitude</th>
@@ -206,6 +198,7 @@
 				<tr>
 					<td>${cluster.clusterID}</td>
 					<td>${cluster.name}</td>
+					<td>${cluster.address}</td>
 					<td>${cluster.county}</td>
 				    <td>${cluster.latitude}</td>
 					<td>${cluster.longitude}</td>

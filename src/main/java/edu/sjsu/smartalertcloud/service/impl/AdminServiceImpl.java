@@ -71,18 +71,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Node> getNode(String[] cities) {
+    public List<Node> getNode(String city) {
         List<Node> allNodes = adminDao.getNode();
 
         List<Node> filteredNodeForCity = new ArrayList<Node>();
-        if (cities != null) {
-            for (String city : cities) {
+        if (city != null && !city.isEmpty()) {
+            
                 for (Node node : allNodes) {
                     if (city.equalsIgnoreCase(node.getCity())) {
                         filteredNodeForCity.add(node);
                     }
                 }
-            }
+            
         } else filteredNodeForCity.addAll(allNodes);
 
         return filteredNodeForCity;
@@ -111,12 +111,46 @@ public class AdminServiceImpl implements AdminService {
         adminDao.addSensor(sensor);
 
     }
+    @Override
+    public List<Sensor> getSensorDetails(String[] types){
+    	 List<Sensor> allSensors = adminDao.getSensor();
+
+         List<Sensor> filteredSensorForType = new ArrayList<Sensor>();
+         if (types != null ) {
+             for (String type:types) {
+                 for (Sensor sensor : allSensors) {
+                     if (type.equals(sensor.getType())) {
+                    	
+                    	 filteredSensorForType.add(sensor);
+                     }
+                 }
+             } 
+         } else filteredSensorForType.addAll(allSensors);
+
+         return filteredSensorForType;
+    	
+    }
 
     @Override
-    public List<Sensor> getSensor(String[] zip) {
+    public List<Sensor> getSensor(String zip) {
         // TODO Auto-generated method stub
-        List<Sensor> sensors = adminDao.getSensor(zip);
-        return sensors;
+    	 List<Sensor> allSensors = adminDao.getSensor();
+
+         List<Sensor> filteredSensorForZip = new ArrayList<Sensor>();
+         if (zip != null && !zip.isEmpty()) {
+             
+                 for (Sensor sensor : allSensors) {
+                     if (zip.equals(sensor.getZip())) {
+                    	 System.out.println("+++++++++zip++++++++++"+zip);
+                    	 filteredSensorForZip.add(sensor);
+                     }
+                 }
+             
+         } else filteredSensorForZip.addAll(allSensors);
+
+         return filteredSensorForZip;
+        /*List<Sensor> sensors = adminDao.getSensor(zip);
+        return sensors;*/
     }
 
     @Override

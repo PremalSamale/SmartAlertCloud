@@ -73,6 +73,45 @@ public class AdminController {
 		mv.addObject("address", request.getParameter("address"));
 		return mv;
 	}
+	
+	@PostMapping("/getLatitudeLongitudeNode")
+	public ModelAndView getLatitudeAndLongitudeNode(HttpServletRequest request) throws IOException {
+		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("7a3efd33126344a7bd1de9187ab102bc");
+		JOpenCageForwardRequest jOpenCageForwardRequest = new JOpenCageForwardRequest(request.getParameter("address"));
+		jOpenCageForwardRequest.setRestrictToCountryCode("us");
+		JOpenCageResponse response = jOpenCageGeocoder.forward(jOpenCageForwardRequest);
+		JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+		JOpenCageComponents jOpenCageComponents = response.getFirstComponents();
+		String city = jOpenCageComponents.getCity();
+		double latitude = firstResultLatLng.getLat();
+		double longitude = firstResultLatLng.getLng();
+		ModelAndView mv = new ModelAndView("addNode");
+		mv.addObject("latitude", latitude);
+		mv.addObject("longitude", longitude);
+		mv.addObject("city", city);
+		mv.addObject("address", request.getParameter("address"));
+		return mv;
+	}
+	
+	
+	@PostMapping("/getLatitudeLongitudeSensor")
+	public ModelAndView getLatitudeAndLongitudeSensor(HttpServletRequest request) throws IOException {
+		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("7a3efd33126344a7bd1de9187ab102bc");
+		JOpenCageForwardRequest jOpenCageForwardRequest = new JOpenCageForwardRequest(request.getParameter("address"));
+		jOpenCageForwardRequest.setRestrictToCountryCode("us");
+		JOpenCageResponse response = jOpenCageGeocoder.forward(jOpenCageForwardRequest);
+		JOpenCageLatLng firstResultLatLng = response.getFirstPosition(); // get the coordinate pair of the first result
+		JOpenCageComponents jOpenCageComponents = response.getFirstComponents();
+		String zip = jOpenCageComponents.getPostcode();
+		double latitude = firstResultLatLng.getLat();
+		double longitude = firstResultLatLng.getLng();
+		ModelAndView mv = new ModelAndView("addSensor");
+		mv.addObject("latitude", latitude);
+		mv.addObject("longitude", longitude);
+		mv.addObject("zip", zip);
+		mv.addObject("address", request.getParameter("address"));
+		return mv;
+	}
 
 	@RequestMapping(value="/searchClusterForAdmin", method={RequestMethod.POST})
 	public ModelAndView searchCluster(HttpServletRequest request) throws ParseException {	
@@ -126,7 +165,7 @@ public class AdminController {
 		System.out.println("***********inside chooseClusterToEditOrDelete clusterID"+clusterId);
 		
 		ModelAndView mv = new ModelAndView("editCluster");
-		if (request.getParameter("action").equals("Edit")) {
+		if (request.getParameter("action").equals("Update")) {
 			cluster.setCounty(request.getParameter("county"));
 			cluster.setLatitude(Double.valueOf(request.getParameter("latitude")));
 			cluster.setLongitude(Double.valueOf(request.getParameter("longitude")));
@@ -157,16 +196,20 @@ public class AdminController {
 		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
 		String name = request.getParameter("name");
 		System.out.println("********************name"+name);
+		double latitude =Double.parseDouble( request.getParameter("latitude"));
+		double longitude = Double.parseDouble(request.getParameter("longitude"));
 		String description = request.getParameter("description");
 		String status = request.getParameter("status");
 		String city = request.getParameter("city");
+		String address = request.getParameter("address");
 		System.out.println("********************name"+name);
 		System.out.println("********************description"+description);
-	    Node node =new Node(name, description, status, city);
+		
+	    Node node =new Node(name,latitude,longitude, description, status, city,address);
 	    System.out.println("**************custer"+node);
 		adminService.addNode(node);
 		ModelAndView mv = new ModelAndView("addNode");
-		mv.addObject("addNodeMsg", "Cluster added successfully");
+		mv.addObject("addNodeMsg", "Node added successfully");
 		return mv;
 		
 	}
@@ -181,7 +224,7 @@ public class AdminController {
 		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
 		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
 		System.out.println("###################### In Search Node");
-		String[] city =request.getParameterValues("city");
+		String city =request.getParameter("city");
 	    System.out.println("******************city"+city);
 		ModelAndView mv = new ModelAndView("manageNode");		
 		List<Node> nodes = adminService.getNode(city);
@@ -193,6 +236,7 @@ public class AdminController {
 			System.out.println("*******inside admin Controller Status"+node.getStatus());
 		}
 		System.out.println("######################");
+		mv.addObject("city", city);
 		mv.addObject("NodeList", nodes);
 		return mv;
 		
@@ -201,7 +245,7 @@ public class AdminController {
 	@RequestMapping(value="/getNodeByFilter", method={RequestMethod.GET})
 	public ModelAndView getNodeByFilter(HttpServletRequest request) throws ParseException {
 		System.out.println("###################### In Search Node");
-		String[] city =request.getParameterValues("city");
+		String city =request.getParameter("city");
 	    System.out.println("******************city"+city);
 		ModelAndView mv = new ModelAndView("editNode");		
 		List<Node> nodes = adminService.getNode(city);
@@ -214,6 +258,7 @@ public class AdminController {
 		}
 		System.out.println("######################");
 		System.out.println("######################");
+		mv.addObject("city", city);
 		mv.addObject("NodeList", nodes);
 		return mv;
 		
@@ -227,16 +272,16 @@ public class AdminController {
 		node = adminService.getNode(nodeID);
 		
 		ModelAndView mv = new ModelAndView("editNode");
-		if (request.getParameter("action").equals("Edit")) {
+		if (request.getParameter("action").equals("Update")) {
 			node.setName(request.getParameter("name"));
 			node.setDescription(request.getParameter("description"));
 			node.setStatus(request.getParameter("status"));
 			adminService.addNode(node);
-			mv.addObject("editNodeResponse", "Node update successfull");
+			mv.addObject("editNodeResponse", "Node updated successfully");
 			return mv;
 		} else {
 			adminService.deleteNode(node);
-			mv.addObject("editNodeResponse", "Node deletion successfull");
+			mv.addObject("editNodeResponse", "Node deleted successfully");
 			return mv;
 		}
 		
@@ -257,12 +302,13 @@ public class AdminController {
 		String description = request.getParameter("description");
 		String status = request.getParameter("status");
 		String type = request.getParameter("type");
-		Float latitude = Float.parseFloat(request.getParameter("lat"));
-		Float longitude = Float.parseFloat(request.getParameter("long"));
+		Double latitude = Double.parseDouble(request.getParameter("latitude"));
+		Double longitude = Double.parseDouble(request.getParameter("longitude"));
 		String zip = request.getParameter("zip");
+		String address = request.getParameter("address");
 		System.out.println("********************name"+name);
 		System.out.println("********************description"+description);
-	    Sensor sensor =new Sensor(name, description, status,type, latitude, longitude, zip);
+	    Sensor sensor =new Sensor(name,description,status,type,latitude,longitude,zip,address);
 	    System.out.println("**************sensor"+sensor);
 		adminService.addSensor(sensor);
 		ModelAndView mv = new ModelAndView("addSensor");
@@ -281,10 +327,10 @@ public class AdminController {
 		Date lastDateOfMaintainnance = formatter.parse(request.getParameter("lastDateOfMaintainnance"));
 		Date dateOfDeployment = formatter.parse(request.getParameter("dateOfDeployment"));*/
 		System.out.println("###################### In Search Sensor");
-		String[] zip =request.getParameterValues("zip");
-	    System.out.println("******************zip"+zip);
+		String[] type =request.getParameterValues("type");
+	  
 		ModelAndView mv = new ModelAndView("manageSensor");		
-		List<Sensor> sensors = adminService.getSensor(zip);
+		List<Sensor> sensors = adminService.getSensorDetails(type);
 		System.out.println("######################");
 		for (Sensor sensor:sensors) {
 			System.out.println("*******inside admin Controller ID"+sensor.getSensorId());
@@ -293,6 +339,7 @@ public class AdminController {
 			System.out.println("*******inside admin Controller Status"+sensor.getStatus());
 		}
 		System.out.println("######################");
+		mv.addObject("type", type);
 		mv.addObject("SensorList", sensors);
 		return mv;
 		
@@ -301,10 +348,10 @@ public class AdminController {
 	@RequestMapping(value="/getSensorByFilter", method={RequestMethod.GET})
 	public ModelAndView getSensorByFilter(HttpServletRequest request) throws ParseException {
 		System.out.println("###################### In Search Sensor");
-		String[] zip =request.getParameterValues("zip");
-	    System.out.println("******************zip"+zip);
+		String[] type =request.getParameterValues("type");
+	
 		ModelAndView mv = new ModelAndView("editSensor");		
-		List<Sensor> sensors = adminService.getSensor(zip);
+		List<Sensor> sensors = adminService.getSensorDetails(type);
 		System.out.println("######################");
 		for (Sensor sensor:sensors) {
 			System.out.println("*******inside admin Controller ID"+sensor.getSensorId());
@@ -313,6 +360,7 @@ public class AdminController {
 			System.out.println("*******inside admin Controller Status"+sensor.getStatus());
 		}
 		System.out.println("######################");
+		mv.addObject("type", type);
 		mv.addObject("SensorList", sensors);
 		return mv;
 		
@@ -320,29 +368,43 @@ public class AdminController {
 
 	@RequestMapping(value="/editSensor", method={RequestMethod.POST})
 	public ModelAndView editSensor(HttpServletRequest request) throws ParseException {
-		// System.out.println("*********** In Select node");
-		// int sensorID = Integer.parseInt(request.getParameter("sensorID"));
-		// Sensor sensor = null;
-		// sensor = adminService.getSensor(sensorID);
-		// ModelAndView mv = new ModelAndView("editSensor");
+		System.out.println("*********** In Select node");
+		String sensorID = request.getParameter("sensorID");
+		Sensor sensor = null;
 		
-		// if (request.getParameter("action").equals("Edit")) {
-		// 	sensor.setName(request.getParameter("name"));
-		// 	sensor.setDescription(request.getParameter("description"));
-		// 	sensor.setStatus(request.getParameter("status"));
-		// 	adminService.addSensor(sensor);
-		// 	mv.addObject("editSensorResponse", "Sensor update successfull");
-		// 	return mv;
-		// } else {
-		// 	adminService.deleteSensor(sensor);
-		// 	mv.addObject("editSensorResponse", "Sensor deletion successfull");
-		// 	return mv;
-		// }
-
+		if(sensorID !=null && !sensorID.equals("")) {
+			int sensorId = Integer.parseInt(sensorID);
+			sensor = adminService.getSensor(sensorId);
+		}
+		
+		
 		ModelAndView mv = new ModelAndView("editSensor");
+		if (request.getParameter("action").equals("Update")) {
+			sensor.setName(request.getParameter("name"));
+			sensor.setDescription(request.getParameter("description"));
+			sensor.setStatus(request.getParameter("status"));
+		/*	sensor.setAddress(request.getParameter("address"));
+			sensor.setLatitude(Double.parseDouble(request.getParameter("latitude")));
+			sensor.setLongitude(Double.parseDouble(request.getParameter("longitude")));
+			sensor.setZip(request.getParameter("zip"));*/
+			
+			adminService.addSensor(sensor);
+			mv.addObject("sensorID",sensor.getSensorId());
+			mv.addObject("zip",sensor.getZip());
+			mv.addObject("latitude", sensor.getLatitude());
+			mv.addObject("longitude", sensor.getLongitude());
+			mv.addObject("editSensorResponse", "Sensor updated successfully");
 			return mv;
+		} else {
+			adminService.deleteSensor(sensor);
+			mv.addObject("editSensorResponse", "Sensor deleted successfully");
+			return mv;
+		}
+		
 		
 	}
 	
-
+	
+	
+	
 }

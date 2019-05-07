@@ -25,7 +25,7 @@ public class Node {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long node_id;
 	
-	@Enumerated(EnumType.STRING)
+	//@Enumerated(EnumType.STRING)
 	private String city;
 	
 	// @ManyToOne
@@ -34,77 +34,48 @@ public class Node {
     // @OneToMany(fetch = FetchType.EAGER, mappedBy="Node")
 	//     private Set<Sensor> node = new HashSet<>();
 	
-    private float latitude;
-	private float longitude;
+    private double latitude;
+	private double longitude;
 	private String name;
 	private String description;
 	private String status;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = true)
-    private Date lastDateOfMaintenance;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = true)
-    private Date dateOfDeployment;
-    
-    
+	private String address;
+
 
 	public Node() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Node(/*Set<Node> node, */String name, String description, String status, String city) {
+	public Node(/*Set<Node> node, */String name,double latitude, double longitude, String description, String status, String city, String address) {
 		super();
 		/*this.node = node;*/
 		this.name = name;
+		this.latitude=latitude;
+		this.longitude=longitude;
 		this.description = description;
 		this.status = status;
 		this.city = city;
+		this.address=address;
 	}
 	
 
-	// public Cluster getCluster() {
-	// 	return cluster;
-	// }
-
-	// public void setCluster(Cluster cluster) {
-	// 	this.cluster = cluster;
-	// }
-
-
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public Date getLastDateOfMaintenance() {
-		return lastDateOfMaintenance;
-	}
-
-	public void setLastDateOfMaintenance(Date lastDateOfMaintenance) {
-		this.lastDateOfMaintenance = lastDateOfMaintenance;
-	}
-
-	public Date getDateOfDeployment() {
-		return dateOfDeployment;
-	}
-
-	public void setDateOfDeployment(Date dateOfDeployment) {
-		this.dateOfDeployment = dateOfDeployment;
-	}
 
 	public Long getNodeId() {
 		return node_id;
@@ -146,10 +117,12 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "Node [node_id=" + node_id + "," + "name=" + name
-				+ ", description=" + description + ", status=" + status +", lastDateOfMaintainnance=" + lastDateOfMaintenance
-				+ ", dateOfDeployment=" + dateOfDeployment + "]";
+		return "Node [node_id=" + node_id + ", city=" + city + ", latitude=" + latitude + ", longitude=" + longitude
+				+ ", name=" + name + ", description=" + description + ", status=" + status + ", address=" + address
+				+ "]";
 	}
+
+
     
     
     
