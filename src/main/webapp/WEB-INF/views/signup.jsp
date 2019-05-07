@@ -16,8 +16,8 @@
 body {
   margin: 0;
   padding: 0;
- /*  background: #DDD; */
-  background-image: url("http://cdn.wallpapersafari.com/52/87/0SqYas.jpg");
+  background: #DDD; 
+  /* background-image: url("http://cdn.wallpapersafari.com/52/87/0SqYas.jpg"); */
   font-size: 16px;
   color: #222;
   font-family: 'Roboto', sans-serif;

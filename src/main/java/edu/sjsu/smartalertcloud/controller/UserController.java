@@ -1,9 +1,18 @@
 package edu.sjsu.smartalertcloud.controller;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +27,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -225,5 +235,126 @@ public class UserController {
     protected ModelAndView addSensor() {
         ModelAndView modelAndView = new ModelAndView("addSensor");
         return modelAndView;
+    }
+	
+	@RequestMapping(value="/getRealDataSensor",  method=RequestMethod.GET)
+    protected ModelAndView getSensorRealTimeData() throws Exception
+    {
+			
+		 TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                 return null;
+             }
+             public void checkClientTrusted(X509Certificate[] certs, String authType) {
+             }
+             public void checkServerTrusted(X509Certificate[] certs, String authType) {
+             }
+         }
+     };
+
+     // Install the all-trusting trust manager
+     SSLContext sc = SSLContext.getInstance("SSL");
+     sc.init(null, trustAllCerts, new java.security.SecureRandom());
+     HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+     // Create all-trusting host name verifier
+     HostnameVerifier allHostsValid = new HostnameVerifier() {
+         public boolean verify(String hostname, SSLSession session) {
+             return true;
+         }
+     };
+
+     // Install the all-trusting host verifier
+     HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+       // final String uri = "https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor";
+     	final String uri="https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor?sensor_type=HUMIDITY";
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+   // System.out.println(result);
+        ModelAndView mv = new ModelAndView("sensorRealData");	
+        mv.addObject("sensorData", result);
+		return mv;
+       
+    }
+	
+	
+	@RequestMapping(value="/getRealDataTempSensor",  method=RequestMethod.GET)
+    protected ModelAndView getSensorRealTempData() throws Exception
+    {
+			
+		 TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                 return null;
+             }
+             public void checkClientTrusted(X509Certificate[] certs, String authType) {
+             }
+             public void checkServerTrusted(X509Certificate[] certs, String authType) {
+             }
+         }
+     };
+
+     // Install the all-trusting trust manager
+     SSLContext sc = SSLContext.getInstance("SSL");
+     sc.init(null, trustAllCerts, new java.security.SecureRandom());
+     HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+     // Create all-trusting host name verifier
+     HostnameVerifier allHostsValid = new HostnameVerifier() {
+         public boolean verify(String hostname, SSLSession session) {
+             return true;
+         }
+     };
+
+     // Install the all-trusting host verifier
+     HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+       // final String uri = "https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor";
+     	final String uri="https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor?sensor_type=THERMAL";
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+    // System.out.println(result);
+        ModelAndView mv = new ModelAndView("tempSensorRealData");	
+        mv.addObject("sensorData", result);
+		return mv;
+       
+    }
+	
+	@RequestMapping(value="/getLast24hoursData",  method=RequestMethod.GET)
+    protected ModelAndView getLast24hoursData() throws Exception
+    {
+			
+		 TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                 return null;
+             }
+             public void checkClientTrusted(X509Certificate[] certs, String authType) {
+             }
+             public void checkServerTrusted(X509Certificate[] certs, String authType) {
+             }
+         }
+     };
+
+     // Install the all-trusting trust manager
+     SSLContext sc = SSLContext.getInstance("SSL");
+     sc.init(null, trustAllCerts, new java.security.SecureRandom());
+     HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+     // Create all-trusting host name verifier
+     HostnameVerifier allHostsValid = new HostnameVerifier() {
+         public boolean verify(String hostname, SSLSession session) {
+             return true;
+         }
+     };
+
+     // Install the all-trusting host verifier
+     HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+       // final String uri = "https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor";
+     	final String uri="https://mysensor-db-906737534.us-east-2.elb.amazonaws.com/api/v1/sensor/report/24";
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+      /*  System.out.println(result);*/
+        ModelAndView mv = new ModelAndView("lastDaySensorData");	
+        mv.addObject("sensorData", result);
+		return mv;
+       
     }
 }

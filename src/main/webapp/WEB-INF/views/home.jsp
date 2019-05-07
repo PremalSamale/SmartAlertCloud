@@ -45,13 +45,14 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/home">Home</a>
+                       <a href="/home">Home</a>
                     </li>
                        <li class="active"><a href="/dashboard">Dashboard</a></li>
       					<li class="active"><a href="/manageSensor">Manage Sensors</a></li>
        					<li class="active"><a href="/manageCluster">Manage Cluster</a></li>
         				<li class="active"><a href="/manageNode">Manage Nodes</a>
-        			</li>
+        			    <li class="active"><a href="/getRealDataSensor">Manage Sensor Data</a></li> 
+        			
 
        			  
      		<ul class="nav navbar-nav navbar-right">	   
@@ -63,16 +64,19 @@
 	  			<!-- /container -->
 	  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	  			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  			
+	  		
     			</ul>
                 </ul>
        
+    
 				<!-- Search -->
-				<form class="navbar-form navbar-right" role="search">
+		<!-- 	<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control">
 					</div>
 					<button type="submit" class="btn btn-default">Search</button>
-				</form>
+				</form>  -->
 
             </div>
             <!-- /.navbar-collapse -->
@@ -198,7 +202,7 @@
 			</div>
         </div>
         
-        <div class="small-print">
+        <div class="small-print" >
         	<div class="container">
         		<p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="/">Contact</a></p>
         		<p>Copyright &copy; smartalertcloud.com 2019 </p>

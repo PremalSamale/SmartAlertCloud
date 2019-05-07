@@ -51,7 +51,7 @@ a:hover {
 </style>
 	    
 	  <style>
-body {font-family: Arial, Helvetica, sans-serif;}
+body {font-family: Arial, Helvetica, sans-serif; }
 form {border: 3px solid #f1f1f1;}
 
 input[type=text], input[type=password] {

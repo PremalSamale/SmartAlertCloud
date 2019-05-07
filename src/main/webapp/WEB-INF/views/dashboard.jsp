@@ -60,16 +60,16 @@
  </style>
   -->
  <style>
-body {
+/* body {
   font-family: "Lato", sans-serif;
-}
+} */
 
 .sidenav {
   height: 100%;
   width: 180px;
   position: fixed;
   z-index: 1;
-  top: 0;
+  top: 35;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
@@ -88,11 +88,11 @@ body {
   color: #23e0e0;
 }
 
-.main {
+/* .main {
   margin-left: 150px; /* Same as the width of the sidenav */
   font-size: 25px; /* Increased text to enable scrolling */
   padding: 0px 10px;
-}
+} */
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
@@ -107,7 +107,7 @@ body {
 
  <div class="sidenav">
 <!--  <h1 style="color: Orange;">Dashboard </h1> -->
-  <a href="/dashboard">Real Time </a>
+  <a href="/dashboard">Dashboard </a>
    <a href="/sensorDataReport">Temperature Sensor Analysis</a>
   <a href="/sensorData">Humidity & Wind Sensor Analysis</a> 
   <a href="/clusterLocationView">View on Map</a>
@@ -118,7 +118,7 @@ body {
 
 <div class="main">
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+<%--   <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
@@ -127,6 +127,7 @@ body {
       <li class="active"><a href="/manageSensor">Manage Sensors</a></li>
        <li class="active"><a href="/manageCluster">Manage Cluster</a></li>
         <li class="active"><a href="/manageNode">Manage Nodes</a></li>
+         <li class="active"><a href="/getRealDataSensor">Manage Sensor Data</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
        
@@ -140,7 +141,53 @@ body {
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </ul>
   </div>
-</nav> 
+</nav>  --%>
+
+      <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-fire"></span> S.A.C</a>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                
+                          <li class="active" ><a href="/home">Home</a></li>
+      					<li class="active"><a href="/dashboard">Dashboard</a></li>
+      					<li class="active"><a href="/manageSensor">Manage Sensors</a></li>
+       					<li class="active"><a href="/manageCluster">Manage Cluster</a></li>
+        				<li class="active"><a href="/manageNode">Manage Nodes</a></li>
+         				<li class="active"><a href="/getRealDataSensor">Manage Sensor Data</a></li>
+
+       			  
+     		<ul class="nav navbar-nav navbar-right">	   
+	   		<li class="active">	 <a onclick="document.forms['logoutForm'].submit()"> <span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+		            	
+				
+	  			<form id="logoutForm" method="POST" action="${contextPath}/logout">
+	  			</form>
+	  			<!-- /container -->
+	  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	  			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  			
+	  		
+    			</ul>
+                </ul>
+
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
  
 <!--  <nav class="navbar navbar-fixed-top" id="header">
@@ -237,5 +284,17 @@ body {
 	</div>
 	<!-- /page-content-wrapper -->
  </div>
+ 
+ 	  <!-- jQuery -->
+    <script src="resources/js/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="resources/js/bootstrap.min.js"></script>
+	
+	<!-- IE10 viewport bug workaround -->
+	<script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<!-- Placeholder Images -->
+	<script src="resources/js/holder.min.js"></script>  
 </body>
 </html>

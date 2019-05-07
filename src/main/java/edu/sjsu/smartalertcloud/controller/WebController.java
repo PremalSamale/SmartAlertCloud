@@ -1,12 +1,14 @@
 package edu.sjsu.smartalertcloud.controller;
 
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import edu.sjsu.smartalertcloud.service.AdminService;
+
 import edu.sjsu.smartalertcloud.model.Sensor;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.sjsu.smartalertcloud.service.AdminService;
 
 
 @RestController
@@ -20,5 +22,7 @@ public class WebController {
 		List<Sensor> sensors = adminService.getSensor();
 		return sensors;
     }
+    
+
 	
 }
